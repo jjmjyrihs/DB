@@ -11,7 +11,10 @@ namespace DB.Controllers
         // GET: Inquire
         public ActionResult Index(string BookName)
         {
-
+            Service.SQL SS = new Service.SQL();
+            List<Model.BookData> Data = new List<Model.BookData>();
+            Data = SS.Find();
+            @ViewBag.result = Data;
             return View();
         }
     }

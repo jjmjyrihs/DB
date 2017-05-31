@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+
+    @using (Html.BeginForm("Index", "Inquire", FormMethod.Post))
+    {
+        <table border="1">
+            <tr>
+                <td rowspan="3">1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><input type="text" name="BookName" /></td>
+                <td><input type="submit" value="查詢" /></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+        </table>
+    }
+
+</div>
+
+<div>
+    <table width="100%" style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD">
+        
+        
+        <tr><td rowspan="4" width="20%" style="padding:70px"><img src ='@Url.Content(ViewBag.result[0].Book_Img)'/></td><td colspan="2">書名：@ViewBag.result[0].Book_Name</td><td rowspan="4"><img src="http://icons.veryicon.com/png/Business/Ecommerce/Full%20shopping%20cart.png" style="padding-left:100px"/></tr>
+        <tr><td width="35%">作者：@ViewBag.result[0].Book_Author</td></tr>
+        <tr><td width="35%">出版社：@ViewBag.result[0].Book_Press</td></tr>
+        <tr><td colspan="2">價格：@ViewBag.result[0].Book_Price</td></tr>
+    </table>
+</div>
