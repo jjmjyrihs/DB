@@ -5,27 +5,25 @@
 }
 
 <div class="jumbotron">
-
     @using (Html.BeginForm("Index", "Inquire", FormMethod.Post))
     {
-        <table border="1">
+        <table width="100%">
             <tr>
-                <td rowspan="3">1</td>
-                <td>2</td>
-                <td>3</td>
+                <td rowspan="3" width="45%" style="padding-left:20px"><img src="https://image.9game.cn/s/y9n/g/%E6%AC%A1%E5%85%83%E5%A4%A7%E4%BD%9C%E6%88%98-%E5%86%B7%E5%8D%B4%E4%B9%A6.png"></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>@Html.TextBox("Book_Search")</td>
-                
-                <td><input type="submit" value="查詢" /></td>
+                <td style="padding-left:130px;">@Html.TextBox("Book_Search")</td>
+
+                <td style="align-content:left;"><input type="image" src="https://68.media.tumblr.com/avatar_e71f256cf55a_128.png" onClick="document.formname.submit();"></td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>2</td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
     }
-
 </div>
 
 <div>
@@ -33,7 +31,7 @@
         
         @for (int i = 0; i < ((List<Model.BookData>)ViewBag.result).Count; i++)
         {
-            <tr ><td style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD" rowspan="4" width="20%" style="padding:70px"><img src='@Url.Content(ViewBag.result[i].Book_Img)' /></td><td colspan="2">書名：@ViewBag.result[0].Book_Name</td><td rowspan="4"><img src="http://icons.veryicon.com/png/Business/Ecommerce/Full%20shopping%20cart.png" style="padding-left:100px" /></tr>
+            <tr ><td style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD" rowspan="4" width="20%" style="padding:70px"><img src='@Url.Content(ViewBag.result[i].Book_Img)' /></td><td colspan="2">書名：@ViewBag.result[i].Book_Name</td><td rowspan="4"><img src="http://icons.veryicon.com/png/Business/Ecommerce/Full%20shopping%20cart.png" style="padding-left:100px" /></tr>
                 <tr><td width="35%">作者：@ViewBag.result[i].Book_Author</td></tr>
                 <tr><td width="35%">出版社：@ViewBag.result[i].Book_Press</td></tr>
                 <tr style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD"><td colspan="2">價格：@ViewBag.result[i].Book_Price</td></tr>

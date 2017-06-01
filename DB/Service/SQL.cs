@@ -13,13 +13,31 @@ namespace Service
     {
         public List<Model.BookData> Find(string a)
         {
+            if (a == null)
+            {
+                a = "";
+            }
+            string test = "\\'\" <>?!.;()=/";
+            char[] splittemp = a.ToCharArray();
+            string total = "";
+            for (int i=0;i<splittemp.Length;i++)
+            {
+                    int c = test.IndexOf(splittemp[i]);
+                    if (c < 0)
+                    {
+                        total += splittemp[i];
+                    }
+            }
+            a = total;
             DataTable dt = new DataTable();
-            string sql = "select * from Books_Management where Book_Name like N'%[" + a+"]%' or Book_Author like N'%[" + a+ "]%'or Book_Press like N'%[" + a + "]%'";
+            string sql = @"select * from Books_Management where Book_Name like N'%[" + @a +"]%' or Book_Author like N'%[" + @a+ "]%'or Book_Press like N'%[" + @a + "]%'";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
+               // cmd.Parameters.Add(new SqlParameter(@a, SqlDbType.Int));
+
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
                 sqlAdapter.Fill(dt);
                 conn.Close();
