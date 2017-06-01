@@ -15,7 +15,8 @@
                 <td>3</td>
             </tr>
             <tr>
-                <td><input type="text" name="BookName" /></td>
+                <td>@Html.TextBox("Book_Search")</td>
+                
                 <td><input type="submit" value="查詢" /></td>
             </tr>
             <tr>
@@ -28,12 +29,14 @@
 </div>
 
 <div>
-    <table width="100%" style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD">
+    <table  width="100%" >
         
-        
-        <tr><td rowspan="4" width="20%" style="padding:70px"><img src ='@Url.Content(ViewBag.result[0].Book_Img)'/></td><td colspan="2">書名：@ViewBag.result[0].Book_Name</td><td rowspan="4"><img src="http://icons.veryicon.com/png/Business/Ecommerce/Full%20shopping%20cart.png" style="padding-left:100px"/></tr>
-        <tr><td width="35%">作者：@ViewBag.result[0].Book_Author</td></tr>
-        <tr><td width="35%">出版社：@ViewBag.result[0].Book_Press</td></tr>
-        <tr><td colspan="2">價格：@ViewBag.result[0].Book_Price</td></tr>
+        @for (int i = 0; i < ((List<Model.BookData>)ViewBag.result).Count; i++)
+        {
+            <tr ><td style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD" rowspan="4" width="20%" style="padding:70px"><img src='@Url.Content(ViewBag.result[i].Book_Img)' /></td><td colspan="2">書名：@ViewBag.result[0].Book_Name</td><td rowspan="4"><img src="http://icons.veryicon.com/png/Business/Ecommerce/Full%20shopping%20cart.png" style="padding-left:100px" /></tr>
+                <tr><td width="35%">作者：@ViewBag.result[i].Book_Author</td></tr>
+                <tr><td width="35%">出版社：@ViewBag.result[i].Book_Press</td></tr>
+                <tr style="border-bottom-style:solid ;border-width:medium ;border-color:#DDDDDD"><td colspan="2">價格：@ViewBag.result[i].Book_Price</td></tr>
+        }
     </table>
 </div>

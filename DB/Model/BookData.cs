@@ -15,5 +15,6 @@ namespace Model
         public int Book_Price { get; set; }
         public int Book_Quantity { get; set; }
         public string Book_Img { get; set; }
+        public string Book_Search { get; set; }
     }
 }

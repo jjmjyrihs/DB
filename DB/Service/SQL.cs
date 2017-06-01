@@ -11,10 +11,10 @@ namespace Service
 {
     public class SQL
     {
-        public List<Model.BookData> Find()
+        public List<Model.BookData> Find(string a)
         {
             DataTable dt = new DataTable();
-            string sql = "select * from Books_Management";
+            string sql = "select * from Books_Management where Book_Name like N'%[" + a+"]%' or Book_Author like N'%[" + a+ "]%'or Book_Press like N'%[" + a + "]%'";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
             {
