@@ -1,27 +1,39 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div>
-   
+</div>
+<div class="register-content">
     @using (Html.BeginForm("Insert", "Registered", FormMethod.Post))
     {
-        <table style="border:3px #cccccc solid;" cellpadding="10" border="1" align="center">
+        <table style="border:3px #cccccc solid;" cellpadding="10" align="center" >
             <tr>
-                <td>Hello</td>
-                <td><input type="text" name="one"/></td>
+                <td>E-Mail：</td>
+                <td>@Html.TextBox("Customer_Email")</td>
             </tr>
             <tr>
-                <td>Test</td>
-                <td><input type="text" name="two"/></td>
+                <td>密碼：</td>
+                <td>@Html.TextBox("Customer_Password")</td>
             </tr>
             <tr>
-                <td>註冊測試</td>
-                <td><input type="submit"/></td>
+                <td>密碼確認：</td>
+                <td><input type="text" name="PwdCk" /></td>
+            </tr>
+            <tr>
+                <td>姓名：</td>
+                <td>@Html.TextBox("Customer_Name")</td>
+            </tr>
+            <tr>
+                <td>手機：</td>
+                <td>@Html.TextBox("Customer_Cellphone")</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="已有帳號?" name="submitButton" /></td>
+                <td align="center">
+                    <input type="submit" value="註冊" name="submitButton" />
+                    <input type="reset" value="清除" />
+                </td>
             </tr>
         </table>
     }
 </div>
-

@@ -16,6 +16,7 @@ namespace DB.Controllers
             List<Model.BookData> Data = new List<Model.BookData>();
             Data = SS.Find(listdata.Book_Search.ToString());
             @ViewBag.result = Data;
+            
             return View();
         }
     }
