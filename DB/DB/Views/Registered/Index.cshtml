@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Insert", "Registered", FormMethod.Post))
+    {
+        <table style="border:3px #cccccc solid;" cellpadding="10" border="1" align="center">
+            <tr>
+                <td>Hello</td>
+                <td><input type="text" name="one"/></td>
+            </tr>
+            <tr>
+                <td>Test</td>
+                <td><input type="text" name="two"/></td>
+            </tr>
+            <tr>
+                <td>註冊測試</td>
+                <td><input type="submit"/></td>
+            </tr>
+        </table>
+    }
+</div>
+
