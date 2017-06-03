@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace Service
 {
-    public class SQL
+    public class SQL_Inquire
     {
         public List<Model.BookData> Find(string a)
         {
@@ -22,6 +22,8 @@ namespace Service
             string total = "";
             for (int i=0;i<splittemp.Length;i++)
             {
+                    
+                    
                     int c = test.IndexOf(splittemp[i]);
                     if (c < 0)
                     {

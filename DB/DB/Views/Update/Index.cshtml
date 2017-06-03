@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    function HideData() {
+        $(".Change").hide("fast");
+    }
+    function ChangeData(id) {
+        if (id == "btn1") {
+            $(".Change").show("slow");
+            $(".Data").hide("slow");
+        } else {
+            $(".Change").hide("slow");
+            $(".Data").show("slow");
+        }
+    }
+</script>
+</div>
+<body onload="HideData()">
+    <div class="register-content">
+        <div class="Data">
+            <table cellpadding="10" align="center">
+                <tr>
+                    <td>姓名：</td>
+                    <td>@ViewBag.Data.Customer_Name</td>
+                </tr>
+                <tr>
+                    <td>E-Mail：</td>
+                    <td>@ViewBag.Data.Customer_Email</td>
+                </tr>
+                <tr>
+                    <td>手機：</td>
+                    <td>@ViewBag.Data.Customer_Cellphone</td>
+                </tr>                
+                <tr>      
+                    <td align="center" colspan="2">
+                        <button onclick="ChangeData(this.id)" id="btn1">變更資料</button>                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="Change">
+            @using (Html.BeginForm("Update", "Update", FormMethod.Post))
+            {
+                <table cellpadding="10" align="center">
+                    <tr>
+                        <td>姓名：</td>
+                        <td>@Html.TextBox("Customer_Name")</td>
+                    </tr>
+                    <tr>
+                        <td>手機：</td>
+                        <td>@Html.TextBox("Customer_Cellphone")</td>
+                    </tr>
+                    <tr>
+                        <td>密碼：</td>
+                        <td>@Html.Password("Customer_Password")</td>
+                    </tr>
+                    <tr>
+                        <td>密碼確認：</td>
+                        <td><input type="password" name="PwdCk" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="確定變更" name="submitButton" />
+                        </td>
+                        <td align="center">
+                            <input type="reset" value="清除" />                        
+                            <input type="button" id="btn2" onclick="ChangeData()" value="返回上頁" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td hidden>
+                            @Html.TextBox("Customer_Email")
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</body>

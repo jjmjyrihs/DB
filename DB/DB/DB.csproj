@@ -141,10 +141,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CheckController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InquireController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisteredController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,9 +193,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Inquire\Index.cshtml" />
     <Content Include="Views\Registered\Index.cshtml" />
-    <Content Include="Views\Registered\Insert.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\Check.cshtml" />
+    <Content Include="Views\Check\Check.cshtml" />
+    <Content Include="Views\Update\Index.cshtml" />
+    <Content Include="Views\Check\Index.cshtml" />
+    <Content Include="Views\Update\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

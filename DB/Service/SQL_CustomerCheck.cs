@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace Service
 {
-    public class Account_Check
+    public class SQL_CustomerCheck
     {
         public List<Model.Customer> Check(Model.Customer Cusdata)
         {
@@ -21,6 +21,7 @@ namespace Service
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
             {
+                
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 // cmd.Parameters.Add(new SqlParameter(@a, SqlDbType.Int));
