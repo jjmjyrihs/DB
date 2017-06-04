@@ -15,13 +15,11 @@ namespace Service
         {
             string account = Cusdata.Customer_Email;
             string pwd = Cusdata.Customer_Password;
-            string sql = @"select ca.Customer_Password,cd.Customer_Email from Customer_Data cd join Customer_Account ca on cd.Customer_ID=ca.Customer_ID where cd.Customer_Email = @Customer_Email";
+            string sql = @"select ca.Customer_Password,cd.Customer_Email from Customer_Data cd join Customer_Account ca on cd.Customer_Email=ca.Customer_Email where cd.Customer_Email = @Customer_Email";
             DataTable dt = new DataTable();
-            
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
             {
-                
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 // cmd.Parameters.Add(new SqlParameter(@a, SqlDbType.Int));

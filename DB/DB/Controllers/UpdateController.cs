@@ -16,7 +16,7 @@ namespace DB.Controllers
             Model.Customer Data = new Model.Customer();
             if (Request.Cookies["cookie"] == null)
             {
-                @ViewBag.acc = "aa";
+                return RedirectToAction("index", "Login");
             }
             else
             {

@@ -12,7 +12,7 @@ namespace Model
         /// <summary>
         /// 顧客ID
         /// </summary>
-        public string Customer_ID { set; get; }
+        
         public string Customer_Name { set; get; }
         public string Customer_Email { set; get; }
         public string Customer_Cellphone { set; get; }

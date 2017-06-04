@@ -38,18 +38,16 @@ namespace Service
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-               // cmd.Parameters.Add(new SqlParameter(@a, SqlDbType.Int));
-
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
                 sqlAdapter.Fill(dt);
                 conn.Close();
             }
             List<Model.BookData> Data = new List<Model.BookData>();
-            Data = FillData(dt);
+            Data = FillData(dt,a);
             return Data;
         }
 
-        private List<Model.BookData> FillData(DataTable Getdata)
+        private List<Model.BookData> FillData(DataTable Getdata,string a)
         {
             List<Model.BookData> result = new List<Model.BookData>();
             
@@ -57,11 +55,13 @@ namespace Service
             {
                 result.Add(
                     new Model.BookData {
-                    Book_Name = row["Book_Name"].ToString(),
-                    Book_Author = row["Book_Author"].ToString(),
-                    Book_Press = row["Book_Press"].ToString(),
-                    Book_Price = int.Parse(row["Book_Price"].ToString()),
-                    Book_Img = row["Book_Img"].ToString()
+                        Book_ID = row["Book_ID"].ToString(),
+                        Book_Name = row["Book_Name"].ToString(),
+                        Book_Author = row["Book_Author"].ToString(),
+                        Book_Press = row["Book_Press"].ToString(),
+                        Book_Price = int.Parse(row["Book_Price"].ToString()),
+                        Book_Img = row["Book_Img"].ToString(),
+                        Book_Search = a
                     });
             }
             return result;

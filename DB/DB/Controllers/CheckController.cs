@@ -9,7 +9,7 @@ namespace DB.Controllers
     public class CheckController : Controller
     {
         // GET: Check
-        public ActionResult Index(Model.Customer Cusdata)
+        public ActionResult check_Login(Model.Customer Cusdata)
         {
             Service.SQL_CustomerCheck SAC = new Service.SQL_CustomerCheck();
             List<Model.Customer> Data = new List<Model.Customer>();
@@ -20,10 +20,8 @@ namespace DB.Controllers
                 {
                     HttpCookie cook = new HttpCookie("cookie");
                     cook["account"] = Cusdata.Customer_Email.ToString();
-                    cook["pwd"] = Cusdata.Customer_Password.ToString();
                     Response.Cookies.Add(cook);
-                    @ViewBag.show = cook["account"].ToString() + " " + cook["pwd"].ToString();
-                    
+                    @ViewBag.show = cook["account"].ToString();
                 }
                 else
                 {

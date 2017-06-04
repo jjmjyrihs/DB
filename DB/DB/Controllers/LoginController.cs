@@ -12,15 +12,17 @@ namespace DB.Controllers
 
         public ActionResult Index()
         {
-            if (Request.Cookies["test"] == null)
+            if (Request.Cookies["cookie"]==null)
             {
                 return View();
             }
             else
             {
                 // @ViewBag.acc = cook["account"].ToString() + "  " + cook["pwd"].ToString();
-                HttpCookie cook = Request.Cookies["cookie"];
-                cook.Expires = DateTime.Now.AddDays(-1d);
+                HttpCookie cook =  new HttpCookie("cookie")
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
                 Response.Cookies.Add(cook);
                 return RedirectToAction("index", "Home");
             }

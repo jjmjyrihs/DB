@@ -24,7 +24,10 @@ namespace DB.Controllers
                 case "註冊":
                     Service.SQL_Registered SSR = new Service.SQL_Registered();
                     List<Model.Customer> Data = new List<Model.Customer>();
-                    SSR.Regis(CusData);
+                    string get_mail  = SSR.Regis(CusData);
+                    HttpCookie cook = Request.Cookies["cookie"];
+                    cook["account"] =get_mail;
+                    Response.Cookies.Add(cook);
                     break;
             }
             return RedirectToAction("index", "Home");
