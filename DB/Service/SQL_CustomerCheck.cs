@@ -11,7 +11,7 @@ namespace Service
 {
     public class SQL_CustomerCheck
     {
-        public List<Model.Customer> Check(Model.Customer Cusdata)
+        public List<Model.CustomerData> Check(Model.CustomerData Cusdata)
         {
             string account = Cusdata.Customer_Email;
             string pwd = Cusdata.Customer_Password;
@@ -28,17 +28,17 @@ namespace Service
                 sqlAdapter.Fill(dt);
                 conn.Close();
             }
-            List<Model.Customer> Data = new List<Model.Customer>();
+            List<Model.CustomerData> Data = new List<Model.CustomerData>();
                 Data = FillData(dt);
             return Data;
         }
 
-        public List<Model.Customer> FillData(DataTable a)
+        public List<Model.CustomerData> FillData(DataTable a)
         {
-            List<Model.Customer> result = new List<Model.Customer>();
+            List<Model.CustomerData> result = new List<Model.CustomerData>();
             foreach(DataRow dr in a.Rows)
             {
-                result.Add(new Model.Customer {
+                result.Add(new Model.CustomerData {
                     Customer_Email = dr["Customer_Email"].ToString(),
                     Customer_Password = dr["Customer_Password"].ToString()
                 });

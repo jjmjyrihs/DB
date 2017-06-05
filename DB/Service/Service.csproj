@@ -42,12 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SQL_CheckOut.cs" />
+    <Compile Include="SQL_GetShoppingCart.cs" />
     <Compile Include="SQL_CustomerCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL_CustomerData.cs" />
     <Compile Include="SQL_CustomerUpdate.cs" />
     <Compile Include="SQL_Inquire.cs" />
+    <Compile Include="SQL_OrderQuantity.cs" />
     <Compile Include="SQL_Registered.cs" />
+    <Compile Include="SQL_SetShoppingCart.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

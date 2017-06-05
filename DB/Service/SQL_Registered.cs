@@ -11,7 +11,7 @@ namespace Service
 {
     public class SQL_Registered
     {
-        public string Regis(Model.Customer a)
+        public string Regis(Model.CustomerData a)
         {
             DataTable dt = new DataTable();
             bool Data;
@@ -33,6 +33,7 @@ namespace Service
                 Data = FillData(dt);
                 if (Data == true)
                 {
+                    
                     SqlCommand cmd = new SqlCommand(set_Sql, conn);
                     // cmd.Parameters.Add(new SqlParameter(@a, SqlDbType.Int))
                     SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
@@ -52,12 +53,12 @@ namespace Service
 
         private bool FillData(DataTable Getdata)
         {
-            List<Model.Customer> result = new List<Model.Customer>();
+            List<Model.CustomerData> result = new List<Model.CustomerData>();
 
             foreach (DataRow row in Getdata.Rows)
             {
                 result.Add(
-                    new Model.Customer
+                    new Model.CustomerData
                     {
                         Customer_Email = row["Customer_Email"].ToString(),
                     });

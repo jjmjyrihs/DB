@@ -59,8 +59,9 @@ namespace Service
                         Book_Name = row["Book_Name"].ToString(),
                         Book_Author = row["Book_Author"].ToString(),
                         Book_Press = row["Book_Press"].ToString(),
-                        Book_Price = int.Parse(row["Book_Price"].ToString()),
+                        Book_Price = row["Book_Price"].ToString(),
                         Book_Img = row["Book_Img"].ToString(),
+                        Book_Quantity = int.Parse(row["Book_Quantity"].ToString()),
                         Book_Search = a
                     });
             }

@@ -13,7 +13,7 @@ namespace DB.Controllers
         {
             string Account="";
             Service.SQL_CustomerData SSC = new Service.SQL_CustomerData();
-            Model.Customer Data = new Model.Customer();
+            Model.CustomerData Data = new Model.CustomerData();
             if (Request.Cookies["cookie"] == null)
             {
                 return RedirectToAction("index", "Login");
@@ -28,7 +28,7 @@ namespace DB.Controllers
             return View();
         }
 
-        public ActionResult Update(Model.Customer Data)
+        public ActionResult Update(Model.CustomerData Data)
         {
             Service.SQL_CustomerUpdate SCU = new Service.SQL_CustomerUpdate();
             Boolean Check = false;

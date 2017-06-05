@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="~/Scripts/jquery-1.10.2.min.map">~/Scripts/jquery-1.10.2.min.map</a>
+<script type="text/javascript">
+    function calc(id) {
+        var PriceId = "Price" + id;
+        var SubtotalId = "Subtotal" + id;
+        var QuantityId = "Quantity" + id;
+        var Count = document.getElementById(id).value;
+        var Price = document.getElementById(PriceId).value;
+        var Total = (Count * Price).toString();
+        var Quantity = document.getElementById(QuantityId).value
+        if (Count > 0) {
+            if (parseInt(Count) > parseInt(Quantity)) {
+                alert("數量大於庫存");
+                document.getElementById(id).value = "";
+            } else {
+                document.getElementById(SubtotalId).innerHTML = Total;
+                document.myform.submit();
+            }
+        } else {
+            alert("輸入數字");
+            document.getElementById(id).value = "";
+        }
+    } </script>
+
+<h2>結帳</h2>
+
+<table width="50%" align="center">
+
+    @for (int i = 0; i < ((List<Model.ShippingCar>)ViewBag.result).Count; i++)
+    {
+        Random rd = new Random();
+        string Order_ID = DateTime.Now.ToString("MMddyyyy") + ViewBag.result[0].Customer_Email + rd.Next(100, 999).ToString();
+        string Price = ViewBag.result[i].Book_Price;
+        string PriceId = "Price" + i;
+        string SubtotalId = "Subtotal" + i;
+        int Quantity = ViewBag.result[i].Book_Quantity;
+        string QuantityId = "Quantity" + i;
+        string Book_ID = ViewBag.result[i].Book_ID;
+        <tr>
+            <td rowspan="5">
+                <img src="@ViewBag.result[i].Book_Img">
+            </td>
+            <td>書名：@ViewBag.result[i].Book_Name</td>
+            @using (Html.BeginForm("Delete", "ShoppingData" ,FormMethod.Post))
+            {
+                @Html.Hidden("Book_ID", Book_ID);
+                <td rowspan="5">
+                    <input type="image" src="http://findicons.com/files/icons/77/icandy_junior_toolbar/128/delete.png" onClick="document.formname.submit()">
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>價格：@ViewBag.result[i].Book_Price</td>
+        </tr>
+
+        <tr>
+            <form method="post" action="~/ShoppingData/InsertBook_Quantity" name="myform">
+
+                <td>
+                    數量：
+                    <input id="@i" onchange="calc(this.id)" type="text" value="@ViewBag.result[i].Order_Quantity" name="GetOrder_Quantity">
+                    <input type="hidden" name="Book_ID" value="@Book_ID"/>
+                    <input type="hidden" name="Order_ID" value="@Order_ID" />
+                    <input type="hidden" name="Book" value="@i" />
+                </td>
+                @Html.Hidden(i.ToString(), Price, new { @id = PriceId })
+            </form>
+        </tr>
+        <tr>
+            <td>
+                小計：
+                <span id=@SubtotalId value="0">@ViewBag.result[i].Book_Price</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                庫存：@ViewBag.result[i].Book_Quantity
+                @Html.Hidden(i.ToString(), Quantity, new { @id = QuantityId })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+</table>
+
+
+<h3>訂購人資訊</h3>
+<div>
+    <table>
+        @using (Html.BeginForm("CheckOut", "CheckOut", FormMethod.Post))
+        {
+            <tr>
+                <td>
+                    姓名：
+                    <input type="text" name="Subscriber_Name" />
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    E-mail：
+                    <input type="text" name="Subscriber_Email" />
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    連絡電話：
+                    <input type="text" name="Subscriber_Cellphone" />
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    寄送地址：
+                    <input type="text" name="Subscriber_Address" />
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="結帳" />
+                <td>
+            </tr>
+        }
+
+    </table>
+</div>

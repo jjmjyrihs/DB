@@ -9,19 +9,19 @@ namespace DB.Controllers
     public class CheckController : Controller
     {
         // GET: Check
-        public ActionResult check_Login(Model.Customer Cusdata)
+        public ActionResult check_Login(Model.CustomerData Cusdata)
         {
             Service.SQL_CustomerCheck SAC = new Service.SQL_CustomerCheck();
-            List<Model.Customer> Data = new List<Model.Customer>();
+            List<Model.CustomerData> Data = new List<Model.CustomerData>();
             Data = SAC.Check(Cusdata);
             if (Data.Count > 0)
             {
                 if (Data[0].Customer_Password == Cusdata.Customer_Password)
                 {
                     HttpCookie cook = new HttpCookie("cookie");
-                    cook["account"] = Cusdata.Customer_Email.ToString();
+                    cook["Account"] = Cusdata.Customer_Email.ToString();
                     Response.Cookies.Add(cook);
-                    @ViewBag.show = cook["account"].ToString();
+                    @ViewBag.show = cook["Account"].ToString();
                 }
                 else
                 {

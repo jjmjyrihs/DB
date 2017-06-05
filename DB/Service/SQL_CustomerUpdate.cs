@@ -11,7 +11,7 @@ namespace Service
 {
     public class SQL_CustomerUpdate
     {
-        public Boolean Update(Model.Customer Data)
+        public Boolean Update(Model.CustomerData Data)
         {
             string sql = "Update dbo.Customer_Data set ";
             

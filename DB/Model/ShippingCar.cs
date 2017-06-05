@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class BookData
+    public class ShippingCar
     {
-        public string Book_ID { get; set; }
+        public string Customer_Email { get; set; }
         public string Book_Name { get; set; }
-        public string Book_Author { get; set; }
-        public string Book_Press { get; set; }
         public string Book_Price { get; set; }
         public int Book_Quantity { get; set; }
+        public int Order_Quantity { get; set; }
+        public string Book_ID { get; set; }
         public string Book_Img { get; set; }
-        public string Book_Search { get; set; }
-
+        public string Action { get; set; }
     }
 }

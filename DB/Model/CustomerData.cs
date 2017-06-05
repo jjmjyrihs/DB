@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Model
 {
-    public class Customer
+    public class CustomerData
     {
         /// <summary>
         /// 顧客ID

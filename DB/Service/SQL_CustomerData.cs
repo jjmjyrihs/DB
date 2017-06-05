@@ -11,9 +11,9 @@ namespace Service
 {
     public class SQL_CustomerData
     {
-        public Model.Customer getData(string Account)
+        public Model.CustomerData getData(string Account)
         {
-            Model.Customer Data = new Model.Customer();
+            Model.CustomerData Data = new Model.CustomerData();
             DataTable dt = new DataTable();
             string sql = "select * from dbo.Customer_Data where Customer_Email = '" + Account + "'";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
@@ -28,9 +28,9 @@ namespace Service
             Data = FillData(dt);
             return Data;
         }
-        private Model.Customer FillData(DataTable dt)
+        private Model.CustomerData FillData(DataTable dt)
         {
-            Model.Customer result = new Model.Customer();
+            Model.CustomerData result = new Model.CustomerData();
             foreach (DataRow row in dt.Rows)
             {
                 result.Customer_Name = row["Customer_Name"].ToString();

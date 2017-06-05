@@ -15,7 +15,7 @@ namespace DB.Controllers
             return View();
         }
 
-        public ActionResult Insert(string submitbutton,Model.Customer CusData)
+        public ActionResult Insert(string submitbutton,Model.CustomerData CusData)
         {
             switch (submitbutton)
             {
@@ -23,10 +23,10 @@ namespace DB.Controllers
                     return RedirectToAction("index", "Login");
                 case "註冊":
                     Service.SQL_Registered SSR = new Service.SQL_Registered();
-                    List<Model.Customer> Data = new List<Model.Customer>();
+                    List<Model.CustomerData> Data = new List<Model.CustomerData>();
                     string get_mail  = SSR.Regis(CusData);
                     HttpCookie cook = Request.Cookies["cookie"];
-                    cook["account"] =get_mail;
+                    cook["Account"] =get_mail;
                     Response.Cookies.Add(cook);
                     break;
             }
