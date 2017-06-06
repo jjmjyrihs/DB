@@ -29,18 +29,26 @@ namespace DB.Controllers
             Service.SQL_ShippingCar SSC = new Service.SQL_ShippingCar();
             Model.ShippingCar Data = new Model.ShippingCar();
             Data.Customer_Email = Request.Cookies["cookie"]["Account"].ToString();
+            if (Data.Customer_Email == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             Data.Action = "Delete";
             Data.Book_ID = Book_ID;
             SSC.ShoppingCart(Data);
-            return RedirectToAction("Index", "CheckOut");
+            return RedirectToAction("Index", "CheckOut", new { Order_Quantity = 1 });
         }
 
-        public ActionResult InsertBook_Quantity(string Book_ID, string GetOrder_Quantity, string Order_ID,string Book)
+        public ActionResult InsertBook_Quantity(string Book_ID, string GetOrder_Quantity, string Order_ID, string Book_ID2,string SubTotal)
         {
             Service.SQL_OrderQuantity SOQ = new Service.SQL_OrderQuantity();
             SOQ.InsertBook_Quantity(Book_ID, GetOrder_Quantity, Order_ID);
             int Order_Quantity = int.Parse(GetOrder_Quantity);
-            return RedirectToAction("Index", "CheckOut", new { Order_Quantity= GetOrder_Quantity ,Book = Book});
+            if (Order_Quantity == 0)
+            {
+                Order_Quantity = 1;
+            }
+            return RedirectToAction("Index", "CheckOut", new { Order_Quantity= Order_Quantity, Book_ID2 = Book_ID2 ,SubTotal = SubTotal});
         }
     }
 }

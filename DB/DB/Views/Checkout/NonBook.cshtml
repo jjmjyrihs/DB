@@ -10,3 +10,9 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
+<script>
+    window.onload = function () {
+        alert("目前購物車沒東西!!");
+        location.href = '@Url.Action("Index","Home")';
+    }
+</script>

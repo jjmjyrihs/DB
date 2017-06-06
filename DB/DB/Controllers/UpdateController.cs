@@ -16,7 +16,7 @@ namespace DB.Controllers
             Model.CustomerData Data = new Model.CustomerData();
             if (Request.Cookies["cookie"] == null)
             {
-                return RedirectToAction("index", "Login");
+                return RedirectToAction("RedirectToLogin", "Login");
             }
             else
             {

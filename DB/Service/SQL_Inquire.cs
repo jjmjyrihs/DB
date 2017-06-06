@@ -11,28 +11,30 @@ namespace Service
 {
     public class SQL_Inquire
     {
-        public List<Model.BookData> Find(string a)
+        public List<Model.BookData> Find(string Book_Search, bool All)
         {
-            if (a == null)
+            string sql = "";
+            if (All == true)
             {
-                a = "";
+                sql = "select * from Books_Management";
             }
-            string test = "\\'\" <>?!.;()=/";
-            char[] splittemp = a.ToCharArray();
-            string total = "";
-            for (int i=0;i<splittemp.Length;i++)
+            else
             {
-                    
-                    
+                string test = "\\'\" <>?!.;()=/";
+                char[] splittemp = Book_Search.ToCharArray();
+                string total = "";
+                for (int i = 0; i < splittemp.Length; i++)
+                {
                     int c = test.IndexOf(splittemp[i]);
                     if (c < 0)
                     {
                         total += splittemp[i];
                     }
-            }
-            a = total;
+                }
+                Book_Search = total;
+                sql = @"select * from Books_Management where Book_Name like N'%[" + @Book_Search + "]%' or Book_Author like N'%[" + @Book_Search + "]%'or Book_Press like N'%[" + @Book_Search + "]%'";
+            }            
             DataTable dt = new DataTable();
-            string sql = @"select * from Books_Management where Book_Name like N'%[" + @a +"]%' or Book_Author like N'%[" + @a+ "]%'or Book_Press like N'%[" + @a + "]%'";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
             {
@@ -43,11 +45,11 @@ namespace Service
                 conn.Close();
             }
             List<Model.BookData> Data = new List<Model.BookData>();
-            Data = FillData(dt,a);
+            Data = FillData(dt, Book_Search);
             return Data;
         }
 
-        private List<Model.BookData> FillData(DataTable Getdata,string a)
+        private List<Model.BookData> FillData(DataTable Getdata,string Book_Search)
         {
             List<Model.BookData> result = new List<Model.BookData>();
             
@@ -62,7 +64,7 @@ namespace Service
                         Book_Price = row["Book_Price"].ToString(),
                         Book_Img = row["Book_Img"].ToString(),
                         Book_Quantity = int.Parse(row["Book_Quantity"].ToString()),
-                        Book_Search = a
+                        Book_Search = Book_Search
                     });
             }
             return result;

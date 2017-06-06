@@ -16,7 +16,7 @@ namespace Model
         public string Subscriber_Name { get; set; }
         public string Subscriber_Cellphone { get; set; }
         public string Subscriber_Email { get; set; }
-        public string Subscriber_Addreass { get; set; }
+        public string Subscriber_Address { get; set; }
         public string Action { get; set; }
 
         //下單書本數量

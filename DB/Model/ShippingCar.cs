@@ -16,5 +16,6 @@ namespace Model
         public string Book_ID { get; set; }
         public string Book_Img { get; set; }
         public string Action { get; set; }
+        public string SubTotalId { get; set; }
     }
 }

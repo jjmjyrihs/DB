@@ -41,7 +41,9 @@ namespace Service
                     Book_Name = row["Book_Name"].ToString(),
                     Book_Price = row["Book_Price"].ToString(),
                     Book_Quantity = int.Parse(row["Book_Quantity"].ToString()),
-                    Book_Img = row["Book_Img"].ToString()
+                    Book_Img = row["Book_Img"].ToString(),
+                    Order_Quantity = int.Parse(row["Order_Quantity"].ToString()),
+                    
                 });
             }
             return result;

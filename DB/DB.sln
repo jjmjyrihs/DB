@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{1E03B4E8-9BC7-424B-B313-2FF032631A84}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "DB.Azure", "DB.Azure\DB.Azure.ccproj", "{AD1B1016-3B69-48D3-9180-5C57464263A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1E03B4E8-9BC7-424B-B313-2FF032631A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E03B4E8-9BC7-424B-B313-2FF032631A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E03B4E8-9BC7-424B-B313-2FF032631A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD1B1016-3B69-48D3-9180-5C57464263A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD1B1016-3B69-48D3-9180-5C57464263A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD1B1016-3B69-48D3-9180-5C57464263A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD1B1016-3B69-48D3-9180-5C57464263A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

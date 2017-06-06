@@ -1,0 +1,40 @@
+﻿
+@{
+    if (Request.Cookies["cookie"] != null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<script>
+    function index() {
+        location.href = '@Url.Action("Index","Home")';
+    }
+</script>
+
+<table  cellpadding="10" align="center">
+    <tr><td><h2>會員資料</h2><td></tr>
+    <tr><td>會員姓名：@ViewBag.Customer_Data.Customer_Name</td></tr>
+    <tr><td>連絡電話：@ViewBag.Customer_Data.Customer_Cellphone</td></tr>
+    <tr><td><h2>訂購人資料</h2><td></tr>
+    <tr><td>訂購人姓名：@ViewBag.Customer_Order[0].Subscriber_Name</td></tr>
+    <tr><td>訂購日期：@ViewBag.Customer_Order[0].Order_Date</td></tr>
+    <tr><td>聯絡信箱：@ViewBag.Customer_Order[0].Subscriber_Email</td></tr>
+    <tr><td>聯絡地址：@ViewBag.Customer_Order[0].Subscriber_Address</td></tr>
+    <tr><td><h2>書籍資料</h2><td></tr>
+    @for (int i = 0; i < ((List<Model.ShowBook>)ViewBag.Book_Data).Count; i++)
+    {
+         <tr><td>書名：@ViewBag.Book_Data[i].Book_Name</td></tr>
+        <tr><td>價格：@ViewBag.Book_Data[i].Book_Price</td></tr>
+        <tr><td>數量：@ViewBag.Book_Data[i].Order_Quantity</td></tr>
+        <tr><td></td></tr>
+    }
+    <tr><td>總金額：@ViewBag.Price_Total</td></tr>
+    <tr><td><button onclick="index()">回首頁</button></td></tr>
+</table>
+

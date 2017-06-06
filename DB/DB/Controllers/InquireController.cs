@@ -12,9 +12,18 @@ namespace DB.Controllers
 
         public ActionResult Index(Model.BookData listdata)
         {
+
             Service.SQL_Inquire SSI = new Service.SQL_Inquire();
             List<Model.BookData> Data = new List<Model.BookData>();
-            Data = SSI.Find(listdata.Book_Search.ToString());
+            if (listdata.Book_Search == null)
+            {
+                Data = SSI.Find("", true);
+                listdata.Book_Search = "";
+            }
+            else
+            {
+                Data = SSI.Find(listdata.Book_Search.ToString(), false);
+            }            
             @ViewBag.result = Data;
             return View();
         }

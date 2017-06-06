@@ -13,32 +13,43 @@ namespace DB.Controllers
         /// 確認購物車
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int Order_Quantity=1,string Book="0")
+        public ActionResult Index(int Order_Quantity,string Book_ID2)
         {
-            string Customer_Email = Request.Cookies["cookie"]["Account"].ToString();
+            string Customer_Email = "";
+            try
+            {
+                 Customer_Email = Request.Cookies["cookie"]["Account"].ToString();
+            }catch(Exception e)
+            {
+                return RedirectToAction("RedirectToLogin", "Login");
+            }
+            
             Service.SQL_GetShoppingCart SCO = new Service.SQL_GetShoppingCart();
             List<Model.ShippingCar> Data = new List<Model.ShippingCar>();
             Data = SCO.Find(Customer_Email);
-            int book = int.Parse(Book);
-            Data[book].Order_Quantity = Order_Quantity;
+
+            try
+            {
+                int book = int.Parse(Book_ID2);
+                Data[book].Order_Quantity = Order_Quantity;
+            }catch(Exception e)
+            {
+               
+            }            
             ViewBag.result = Data;
-            return View();
+            if (Data.Count == 0)
+            {
+                return RedirectToAction("NonBook", "CheckOut");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        /// <summary>
-        /// 結帳
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult CheckOut(Model.CustomerOrder Data)
+        public ActionResult NonBook()
         {
-            
-            Service.SQL_CheckOut SCO = new Service.SQL_CheckOut();
-            
-            Service.SQL_GetShoppingCart GSC = new Service.SQL_GetShoppingCart();
-            List<Model.ShippingCar> GetAllBookID = new List<Model.ShippingCar>();
-            GetAllBookID = GSC.Find(Request.Cookies["cookie"]["Account"].ToString());
-            
-            return null;
+            return View();
         }
     }
 }

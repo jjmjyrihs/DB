@@ -1,26 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Cookies["cookie"]!=null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
-
-
 <div class="jumbotron">
     @using (Html.BeginForm("Index", "Inquire", FormMethod.Post))
     {
-        <table  width="100%" >
+        <table  width="100%">            
             <tr>
-                <td rowspan="3" width="45%" style="padding-left:20px"><img src="https://image.9game.cn/s/y9n/g/%E6%AC%A1%E5%85%83%E5%A4%A7%E4%BD%9C%E6%88%98-%E5%86%B7%E5%8D%B4%E4%B9%A6.png" ></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td style="padding-left:130px;">@Html.TextBox("Book_Search")</td>
-
-                <td style="align-content:left;"><input type="image" src="https://68.media.tumblr.com/avatar_e71f256cf55a_128.png" onClick="document.formname.submit();"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
+                <td align="right"><input id="Book_Search" type="text" name="Book_Search"/></td>
+                <td style="padding-left:20px;"><input type="image" src="https://68.media.tumblr.com/avatar_e71f256cf55a_128.png" onClick="document.formname.submit();" /></td>
+          
+                <td style="padding-left:190px;"><input type="image" src="https://image.9game.cn/s/y9n/g/%E6%AC%A1%E5%85%83%E5%A4%A7%E4%BD%9C%E6%88%98-%E5%86%B7%E5%8D%B4%E4%B9%A6.png" onClick="document.formname.submit();" /></td>
+           
             </tr>
         </table>
     }

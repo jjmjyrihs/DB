@@ -1,0 +1,33 @@
+﻿@{
+    if (Request.Cookies["cookie"]!= null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<div  class="register-content">
+    <table style="border:5px #cccccc solid;" cellpadding="10" align="center">
+        @for (int i = 0; i < ((List<Model.CustomerOrder>)ViewBag.result).Count; i++)
+        {
+            <tr><td colspan="2" align="center"><h2>訂購人資料</h2></td></tr>
+            <tr><td>訂購人姓名：</td><td align="center">@ViewBag.result[i].Subscriber_Name</td></tr>
+            <tr><td>訂購日期：</td><td align="center">@ViewBag.result[i].Order_Date</td></tr>
+            <tr><td>聯絡信箱：</td><td align="center">@ViewBag.result[i].Subscriber_Email</td></tr>
+            <tr><td>聯絡地址：</td><td align="center">@ViewBag.result[i].Subscriber_Address</td></tr>
+            <tr><td colspan="2" align="center"><h2>書籍資料</h2></td></tr>
+            for (int j = 0; j < ((List<Model.ShowBook>)ViewBag.Book).Count; j++)
+            {
+                <tr><td>書名：</td><td align="center">@ViewBag.Book[j].Book_Name</td></tr>
+                <tr><td>價格：</td><td align="center">@ViewBag.Book[j].Book_Price</td></tr>
+                <tr><td>數量：</td><td align="center">@ViewBag.Book[j].Order_Quantity</td></tr>                
+            }
+            <tr><td colspan="2">--------------------------------------------------------------</td></tr>
+        }
+        <tr><td colspan="2" align="center"><button onclick="index()">回首頁</button></td></tr>
+    </table>
+</div>

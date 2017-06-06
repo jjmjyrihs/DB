@@ -10,3 +10,9 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
+<script>
+    window.onload = function () {
+        alert("登入成功");
+        location.href = '@Url.Action("Index","Home")';
+    }
+</script>
