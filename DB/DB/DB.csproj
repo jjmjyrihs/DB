@@ -236,6 +236,7 @@
     <Content Include="Views\Order_Search\Index.cshtml" />
     <Content Include="Views\Checkout\NonBook.cshtml" />
     <Content Include="Views\Login\RedirectToHome.cshtml" />
+    <Content Include="Views\Admin\Open_Admin_Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

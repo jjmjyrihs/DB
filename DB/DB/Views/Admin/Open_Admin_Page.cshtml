@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Open_Admin_Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="Admin_p" align="center">進銷存管理系統</p>
+<script>
+    function test() {
+        location.href = "@Url.Action("Index", "Admin")";
+    }
+    
+</script>
+
+<div style="position: relative; width: 100%; ">
+    <div style="position: absolute; width:100%;left:40% ;"   > 
+        <table class ="Admin_Table" border ="5" ; width="50%"; >
+            <tr><td>1</td></tr>
+            <tr><td>1</td></tr>
+            <tr><td>1</td></tr>
+            <tr><td>2</td></tr>
+            <tr><td>3</td></tr>
+            <tr><td>43</td></tr>
+            <tr><td>5</td></tr>
+         </table>
+    </div>
+
+    <div>
+        <button class="Admin_btn" onclick="test()">進貨</button>
+    </div>
+    <br><br>
+    <br><br>
+    <div>
+        <button class="Admin_btn" onclick="test()">銷貨紀錄</button>
+    </div>
+    <br><br><br><br>
+    <div>
+        <button class="Admin_btn" onclick="test()">商品管理</button>
+    </div>
+
+
+</div>

@@ -40,3 +40,62 @@ textarea {
     padding-right: 15px;
     font-size: 30px;
 }
+
+.Admin_btn {
+    padding: 16.5px 33px;
+    border: 1px solid #C7C7C7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#00BBFF));
+    background: -webkit-linear-gradient(top, #FFFFFF, #00BBFF);
+    background: -moz-linear-gradient(top, #FFFFFF, #00BBFF);
+    background: -ms-linear-gradient(top, #FFFFFF, #00BBFF);
+    background: -o-linear-gradient(top, #FFFFFF, #00BBFF);
+    background-color: #00BBFF;
+    box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 6px #9C0000;
+    -webkit-box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 6px #9C0000;
+    -moz-box-shadow: 0px 7px 2px -5px #1A1A1A, inset 0px 0px 6px #9C0000;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    text-shadow: #000000 1px 1px 0px;
+    color: #3B3230;
+    font-size: 41px;
+    font-family: '微軟正黑體';
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    cursor: pointer;
+}
+
+    .Admin_btn:hover {
+        background: none;
+        background-color: #00BBFF;
+        box-shadow: 0px 0px 5px 0px #AAAAAA;
+        -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+        -moz-box-shadow: 0px 0px 5px 0px #AAAAAA;
+        border: 1px solid #ffffff;
+        color: #470000;
+    }
+
+    .Admin_btn:active {
+        top: 1px;
+        position: relative;
+    }
+.Admin_p {
+    color: #220088;
+    font-weight: bold;
+    font-size: 2cm;
+    font-family: '微軟正黑體';
+}
+
+.Position_List{
+    border:1px;
+    position: relative;
+    left:1000px;
+
+}
+.Admin_Table {
+    border-style: ridge;
+    border-color: #444444;
+}

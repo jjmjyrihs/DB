@@ -16,7 +16,7 @@ namespace Service
             string sql_ID = "insert into dbo.Customer_Order(Order_ID) values('" + Data.Order_ID + "'); ";
             string sql = "update dbo.Customer_Order set " +
                 "Customer_Email = '" + Data.Customer_Email + "'," +
-                "Order_Date = '" + DateTime.Now.ToString("MM/dd/yyyy") + "'," +
+                "Order_Date = '" + DateTime.Now.ToString("yyyy/MM/dd") + "'," +
                 "Subscriber_Name = '" + Data.Subscriber_Name + "'," +
                 "Subscriber_Cellphone = '" + Data.Subscriber_Cellphone + "'," +
                 "Subscriber_Email = '" + Data.Subscriber_Email + "'," +
@@ -28,10 +28,10 @@ namespace Service
                 /*  SqlCommand cmd = new SqlCommand(sql_setID, conn);
                   SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
                   cmd.ExecuteNonQuery();*/
-                SqlCommand cmd_sql = new SqlCommand(sql, conn);
-                SqlDataAdapter sqlAdapter_sql = new SqlDataAdapter(cmd_sql);
                 SqlCommand cmd_sql_ID = new SqlCommand(sql_ID, conn);
+                SqlCommand cmd_sql = new SqlCommand(sql, conn);
                 SqlDataAdapter sqlAdapter_sql_ID = new SqlDataAdapter(cmd_sql_ID);
+                SqlDataAdapter sqlAdapter_sql = new SqlDataAdapter(cmd_sql);
                 try
                 {
                     cmd_sql_ID.ExecuteNonQuery();

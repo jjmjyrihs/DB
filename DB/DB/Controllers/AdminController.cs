@@ -13,21 +13,26 @@ namespace DB.Controllers
         {
             return View();
         }
-
-        public void  Admin_Check(string Admin_Account,string Admin_Password)
+        public ActionResult Admin_Check(string Admin_Account, string Admin_Password)
         {
-            if (Admin_Account == "PleaseHackMe" && Admin_Password== "123")
+            if (Admin_Account == "PleaseHackMe" && Admin_Password == "123")
             {
-                Admin_Controller();
+                return RedirectToAction("Open_Admin_Page", "Admin","");
+
             }
             else
             {
-                
+                return RedirectToAction("Index", "Admin");
             }
         }
-        public ActionResult Admin_Controller()
+
+
+        public ActionResult Open_Admin_Page(string condition)
         {
+
             return View();
         }
+
+        
     }
 }

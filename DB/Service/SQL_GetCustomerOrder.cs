@@ -24,6 +24,7 @@ namespace Service
             }            
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             DataTable dt = new DataTable();
+            
             using (conn)
             {
                 try
@@ -46,14 +47,13 @@ namespace Service
         private List<Model.CustomerOrder> FillData(DataTable Getdata)
         {
             List<Model.CustomerOrder> result = new List<Model.CustomerOrder>();
-
             foreach (DataRow row in Getdata.Rows)
             {
                 result.Add(
                     new Model.CustomerOrder
                     {
                         Order_ID = row["Order_ID"].ToString(),
-                        Order_Date = row["Order_Date"].ToString(),
+                        Order_Date = Convert.ToDateTime(row["Order_Date"]).ToString("yyyy-MM-dd"),
                         Subscriber_Name = row["Subscriber_Name"].ToString(),
                         Subscriber_Cellphone = row["Subscriber_Cellphone"].ToString(),
                         Subscriber_Email = row["Subscriber_Email"].ToString(),

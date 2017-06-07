@@ -58,7 +58,8 @@ html {
 }
 
 body {
-  margin: 0;
+    margin: 0;
+    cursor:  wait;
 }
 
 a:focus {
@@ -6815,3 +6816,5 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
