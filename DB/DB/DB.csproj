@@ -226,7 +226,6 @@
     <Content Include="Views\Update\Index.cshtml" />
     <Content Include="Views\Update\Update.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Admin_Controller.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\DataShow\Index.cshtml" />
     <Content Include="Views\Login\Check_Login.cshtml" />
@@ -236,7 +235,9 @@
     <Content Include="Views\Order_Search\Index.cshtml" />
     <Content Include="Views\Checkout\NonBook.cshtml" />
     <Content Include="Views\Login\RedirectToHome.cshtml" />
-    <Content Include="Views\Admin\Open_Admin_Page.cshtml" />
+    <Content Include="Views\Admin\PurchaseList.cshtml" />
+    <Content Include="Views\Admin\RedirectToAdminHome.cshtml" />
+    <Content Include="Views\Admin\SaleList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

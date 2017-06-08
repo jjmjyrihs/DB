@@ -54,7 +54,7 @@ namespace Service
             List<Model.BookData> result = new List<Model.BookData>();
             
             foreach(DataRow row in Getdata.Rows)
-            {
+            {                
                 result.Add(
                     new Model.BookData {
                         Book_ID = row["Book_ID"].ToString(),

@@ -1,0 +1,62 @@
+﻿@{
+    if (Request.Cookies["cookie"] != null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<script>
+    $(document).ready(function () {
+        $('.Admin_PurchaseList').show("slow");
+        $("#PurchaseList").click(function () {
+            location.href =  '@Url.Action("PurchaseList", "Admin")'
+        })
+    });
+</script>
+
+<p class="Admin_p" align="center">進銷存管理系統</p>
+<div style="position: relative; width: 100%;top:50px;">
+    <!-- 進貨明細-->
+    <div style="position: absolute; width:100%;left:30%;" class="Admin_PurchaseList" hidden>
+
+            <table class="Admin_Table" border="5" width="70%">
+                <tr>
+                    <td align="center">選擇書本</td>
+                    <td align="center">訂單編號</td>
+                    <td align="center">ISBN</td>
+                    <td align="center">書名</td>
+                    <td align="center">作者</td>
+                    <td height="40px" align="center">出版社</td>
+                    <td align="center">售價</td>
+                    <td width="12%" align="center">進貨數量</td>
+                </tr>
+
+            </table>
+            <br>
+            <div style="position:relative; width:100%;left:60%;">
+                <input class="Admin_btn_Purchase" type="submit" value="更新庫存" />
+            </div>
+        
+    </div>
+</div>
+
+<div>
+    <button id="PurchaseList" class="Admin_btn">進貨明細</button>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <button class="Admin_btn" onclick="test()">銷貨紀錄</button>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <button class="Admin_btn" onclick="test()">商品管理</button>
+</div>
