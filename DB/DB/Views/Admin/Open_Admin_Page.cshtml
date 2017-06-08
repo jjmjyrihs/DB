@@ -12,12 +12,14 @@
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
-
     function test(id) {
         if ($("#" + id).prop("checked")) {
             $("#text" + id).prop("readonly", false);
+            //$("#text" + id).prop("hidden", false);
+            $("#text" + id).show("slow");
         } else {
             $("#text" + id).prop("readonly", true);
+            $("#text" + id).hide("slow");
         }
     }
 </script>
@@ -27,14 +29,14 @@
     <div style ="position: absolute; width:100%;left:30%;">
         @using (Html.BeginForm("CheckPurchaseBook", "Admin", FormMethod.Post))
         {
-            <table class="Admin_Table" border="5" width="70%" ;>
-                <tr>
+            <table class="Admin_Table" border="5" width="70%"   >
+                <tr >
                     <td align="center">選擇書本</td>
                     <td align="center">ISBN</td>
                     <td align="center">書名</td>
                     <td align="center">作者</td>
                     <td align="center">出版社</td>
-                    <td align="center">售價</td>
+                    <td height="40px" align="center">售價</td>
                     <td align="center">庫存數量</td>
                     <td width="12%" align="center">進貨數量</td>
                 </tr>
@@ -42,24 +44,26 @@
                 @for (int i = 0; i < ((List<Model.BookData>)ViewBag.GetCertainData).Count; i++)
                 {
                     string TestName = "text" + @i;
+                    string ID = ViewBag.GetCertainData[i].Book_ID.ToString();
                     <tr>
                         <td align="center">
                             <input type="checkbox" name="DataCheck" value="@ViewBag.GetCertainData[i].Book_ID.ToString()" id="@i" onclick="test(this.id)">
                         </td>
-                        <td align="center">@ViewBag.GetCertainData[i].Book_ID.ToString()</td>
+                        <td height="30px" align="center">@ViewBag.GetCertainData[i].Book_ID.ToString()</td>
                         <td>@ViewBag.GetCertainData[i].Book_Name.ToString()</td>
                         <td>@ViewBag.GetCertainData[i].Book_Author.ToString()</td>
                         <td>@ViewBag.GetCertainData[i].Book_Press.ToString()</td>
                         <td align="center">@ViewBag.GetCertainData[i].Book_Price.ToString()</td>
                         <td align="center">@ViewBag.GetCertainData[i].Book_Quantity.ToString()</td>
-                        <td>
-                            <input type="text" id="@TestName" style="width:100%" readonly />
+                        <td align="center">
+                            <input  type="text" name ="GetPurchase" id="@TestName" style="width:50%;text-align:center;height="100px"" maxlength="2"  readonly hidden/>
+                            @Html.Hidden("ID", ID)
                         </td>
                     </tr>
                 }
             </table>
             <br>
-            <div style="position: absolute; width:100%;left:60%;top:45%">
+            <div style="position:relative; width:100%;left:60%;">
                 <input class ="Admin_btn_Purchase" type="submit" value="進貨" />
             </div>
         }

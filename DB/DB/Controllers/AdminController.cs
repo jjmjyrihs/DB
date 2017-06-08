@@ -46,9 +46,13 @@ namespace DB.Controllers
             return View();
         }
 
-        public ActionResult CheckPurchaseBook(string[] DataCheck)
+        public ActionResult CheckPurchaseBook(string[] GetPurchase,string[]ID)
         {
-            
+
+            for(int i = 0; i < ID.Count(); i++)
+            {
+                
+            }
             return null;
         }
     }

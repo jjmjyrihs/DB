@@ -16,7 +16,7 @@ namespace Service
         /// <returns></returns>
         public List<Model.BookData> GetRangeBookData()
         {
-            string sql = "select * from Books_Management where Book_Quantity>10 or Book_Quantity<3 order by Book_Quantity";
+            string sql = "select * from Books_Management where Book_Quantity<=5 order by Book_Quantity";
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
