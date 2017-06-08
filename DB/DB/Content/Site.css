@@ -87,6 +87,8 @@ textarea {
     font-weight: bold;
     font-size: 2cm;
     font-family: '微軟正黑體';
+    padding-top:30px;
+    
 }
 
 .Position_List{
@@ -99,3 +101,47 @@ textarea {
     border-style: ridge;
     border-color: #444444;
 }
+
+.Admin_btn_Purchase {
+    -moz-box-shadow: inset 4px -3px 21px 3px #3b71c7;
+    -webkit-box-shadow: inset 4px -3px 21px 3px #3b71c7;
+    box-shadow: inset 4px -3px 21px 3px #3b71c7;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3b71c7), color-stop(1, #415989));
+    background: -moz-linear-gradient(top, #3b71c7 5%, #415989 100%);
+    background: -webkit-linear-gradient(top, #3b71c7 5%, #415989 100%);
+    background: -o-linear-gradient(top, #3b71c7 5%, #415989 100%);
+    background: -ms-linear-gradient(top, #3b71c7 5%, #415989 100%);
+    background: linear-gradient(to bottom, #3b71c7 5%, #415989 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b71c7', endColorstr='#415989',GradientType=0);
+    background-color: #3b71c7;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+    border: 1px solid #1f2f47;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    padding: 12px 34px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3c5bba;
+}
+
+.Admin_btn_Purchase:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #415989), color-stop(1, #3b71c7));
+    background: -moz-linear-gradient(top, #415989 5%, #3b71c7 100%);
+    background: -webkit-linear-gradient(top, #415989 5%, #3b71c7 100%);
+    background: -o-linear-gradient(top, #415989 5%, #3b71c7 100%);
+    background: -ms-linear-gradient(top, #415989 5%, #3b71c7 100%);
+    background: linear-gradient(to bottom, #415989 5%, #3b71c7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#415989', endColorstr='#3b71c7',GradientType=0);
+    background-color: #415989;
+}
+
+.Admin_btn_Purchase:active {
+    position: relative;
+    top: 1px;
+}
+
+        

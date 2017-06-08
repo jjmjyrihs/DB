@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SQL_AdminGetData.cs" />
     <Compile Include="SQL_CheckOut.cs" />
     <Compile Include="SQL_DeleteShoppingCart.cs" />
     <Compile Include="SQL_GetCustomerOrder.cs" />

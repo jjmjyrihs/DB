@@ -27,5 +27,6 @@ namespace DB.Controllers
             @ViewBag.result = Data;
             return View();
         }
+
     }
 }
