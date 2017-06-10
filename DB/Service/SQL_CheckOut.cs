@@ -13,7 +13,7 @@ namespace Service
         public void InsertCustomer_Order(Model.CustomerOrder Data)
         {
             //Customer_Order sql
-            string sql_ID = "insert into dbo.Customer_Order(Order_ID) values('" + Data.Order_ID + "'); ";
+            string sql_ID = "insert into dbo.Customer_Order(Order_ID,Sale_Processing_Static) values('" + Data.Order_ID + "','False'); ";
             string sql = "update dbo.Customer_Order set " +
                 "Customer_Email = '" + Data.Customer_Email + "'," +
                 "Order_Date = '" + DateTime.Now.ToString("yyyy/MM/dd") + "'," +

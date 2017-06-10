@@ -32,30 +32,28 @@ namespace DB.Controllers
                 return RedirectToAction("Index", "Admin");
             }
         }
-
         /// <summary>
-        /// 開啟頁面
+        /// 取得最一開始主頁數量小於3書籍function
         /// </summary>
-        /// <returns></returns>
-        public ActionResult PurchaseList()
+        public void GetHomeData()
         {
             List<Model.BookData> GetData = new List<Model.BookData>();
             List<Model.Admin> GetAllData = new List<Model.Admin>();
             List<Model.Admin> SendProcessingData = new List<Model.Admin>();
             List<Model.Admin> SendProcessedData = new List<Model.Admin>();
 
-            GetData =  SAGD.GetRangeBookData();
+            GetData = SAGD.GetRangeBookData();
             GetAllData = SAGD.PurchaseList();
-            
-            for(int i = 0; i < GetAllData.Count; i++)
+
+            for (int i = 0; i < GetAllData.Count; i++)
             {
                 if (GetAllData[i].Processing_Static == "False")
                 {
                     SendProcessingData.Add(GetAllData[i]);
                 }
                 if (new TimeSpan(DateTime.Now.Ticks
-                    - Convert.ToDateTime(GetAllData[i].Order_Date).Ticks).TotalDays <= 3 
-                    && GetAllData[i].Processing_Static=="True")
+                    - Convert.ToDateTime(GetAllData[i].Order_Date).Ticks).TotalDays <= 3
+                    && GetAllData[i].Processing_Static == "True")
                 {
                     SendProcessedData.Add(GetAllData[i]);
                 }
@@ -65,6 +63,15 @@ namespace DB.Controllers
             ViewBag.GetAllData = GetAllData;
             ViewBag.GetProcessingData = SendProcessingData;
             ViewBag.GetProcessedData = SendProcessedData;
+        }
+
+        /// <summary>
+        /// 開啟主頁面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PurchaseList()
+        {
+            GetHomeData();
             return View();
         }
         /// <summary>
@@ -89,24 +96,34 @@ namespace DB.Controllers
         /// <summary>
         /// 將未處理訂單之書籍更新至書庫裡面
         /// </summary>
-        public ActionResult UpdateStock(string[] Update,string[] Book_ID)
+        public ActionResult UpdateStock(string[] Update)
         {
+            string[] Book_Data;
             for(int i = 0; i < Update.Length; i++)
             {
-                if (Update[i].ToString() != "")
-                {
-
-                }
+                Book_Data = Update[i].Split(' ');
+                SAGD.UpdateStock(Book_Data[0].ToString(), Book_Data[1],Book_Data[2]);
             }
-            return null;
+            return RedirectToAction("PurchaseList","Admin");
         }
-        
+        /// <summary>
+        /// 所有銷貨資料
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SaleList()
         {
+            GetHomeData();
+            List<List<Model.Admin>> GetSaleList = new List<List<Model.Admin>>();
+            Service.SQL_AdminGetData SAGD = new Service.SQL_AdminGetData();
+            GetSaleList =  SAGD.GetSaleList();
+            ViewBag.GetSaleList = GetSaleList;
             return View();
         }
         
-
+        public ActionResult Book_Management()
+        {
+            return View();
+        }
 
 
 

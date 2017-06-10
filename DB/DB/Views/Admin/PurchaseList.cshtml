@@ -62,24 +62,35 @@
 
 <script>
     $(document).ready(function () {
+        $("#Father").show();
+        $(".Admin_Home").show("slow");
+
         $("#PurchaseList").click(function () {
-            $(".Admin_Home").hide("fast");
+            $(".Admin_Home").hide("slow");
             $(".Admin_PurchaseList").show("slow");
             $("#Title").text("進貨明細");
 
         });
         $("#Back").click(function () {
+            $(".Admin_PurchaseList").hide("slow");
             $(".Admin_Home").show("slow");
-            $(".Admin_PurchaseList").hide("fast");
             $("#Title").text("進銷存管理系統");
+        });
+        ////////////////////////////////
+        $("#SaleList").click(function () {
+            location.href = "@Url.Action("SaleList","Admin")";
+        });
+        $("#Book_Management").click(function () {
+            
+            location.href = "@Url.Action("Book_Management", "Admin")";
         });
     });
 </script>
 
 <p id="Title" class="Admin_p" align="center">進銷存管理系統</p>
-<div style="position: relative; width: 100%;top:50px;">
+<div  id="Father" style="position: relative; width: 100%;top:50px;" hidden>
     <!-- 進入首頁-->
-    <div style="position: absolute; width:100%;left:30%;" class="Admin_Home">
+    <div style="position: absolute; width:100%;left:30%;" class="Admin_Home" hidden>
         @using (Html.BeginForm("CheckPurchaseBook", "Admin", FormMethod.Post))
         {
             <table class="Admin_Table" border="5" width="70%">
@@ -153,18 +164,18 @@
                 
                 @for (int i = 0; i < ((List<Model.Admin>)ViewBag.GetProcessingData).Count; i++)
                 {
-                    string Book_ID = ViewBag.GetProcessingData[i].Book_ID.Tostring();
+                    string Book_ID = ViewBag.GetProcessingData[i].Book_ID.ToString();
                     <tr>
-                        <td align="center"><input type="checkbox" name="Update" value="@ViewBag.GetProcessingData[i].Book_ID"></td>
+                        <td align="center"><input type="checkbox" name="Update" value="@ViewBag.GetProcessingData[i].Order_ID @ViewBag.GetProcessingData[i].Book_ID @ViewBag.GetProcessingData[i].Purchase_Quantity"></td>
                         <td>@ViewBag.GetProcessingData[i].Order_ID</td>
                         <td align="center">@ViewBag.GetProcessingData[i].Book_ID</td>
                         <td>@ViewBag.GetProcessingData[i].Book_Name</td>
                         <td>@ViewBag.GetProcessingData[i].Book_Author</td>
                         <td>@ViewBag.GetProcessingData[i].Book_Press</td>
                         <td align="center">@ViewBag.GetProcessingData[i].Book_Price</td>
-                        <td align="center">@ViewBag.GetProcessingData[i].Book_Quantity</td>
+                        <td align="center">@ViewBag.GetProcessingData[i].Purchase_Quantity</td>
                     </tr>
-                    @Html.Hidden("Book_ID", Book_ID)
+                    
                 }
             </table>
             
@@ -200,7 +211,7 @@
                             <td>@ViewBag.GetProcessedData[i].Book_Author</td>
                             <td>@ViewBag.GetProcessedData[i].Book_Press</td>
                             <td align="center">@ViewBag.GetProcessedData[i].Book_Price</td>
-                            <td align="center">@ViewBag.GetProcessedData[i].Book_Quantity</td>
+                            <td align="center">@ViewBag.GetProcessedData[i].Purchase_Quantity</td>
                         </tr>
                     }
                 </table>
@@ -228,7 +239,7 @@
                             <td>@ViewBag.GetAllData[i].Book_Author</td>
                             <td>@ViewBag.GetAllData[i].Book_Press</td>
                             <td align="center">@ViewBag.GetAllData[i].Book_Price</td>
-                            <td align="center">@ViewBag.GetAllData[i].Book_Quantity</td>
+                            <td align="center">@ViewBag.GetAllData[i].Purchase_Quantity</td>
                         </tr>
                     }
                 </table>
@@ -245,13 +256,13 @@
     <br>
     <br>
     <div>
-        <button class="Admin_btn" onclick="test()">銷貨紀錄</button>
+        <button id ="SaleList" class="Admin_btn">銷貨紀錄</button>
     </div>
     <br>
     <br>
     <br>
     <div>
-        <button class="Admin_btn" onclick="test()">商品管理</button>
+        <button  id ="Book_Management" class="Admin_btn">商品管理</button>
     </div>
 
 

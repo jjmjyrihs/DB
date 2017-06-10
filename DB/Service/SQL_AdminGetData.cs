@@ -70,11 +70,11 @@ namespace Service
                 conn.Close();
             }
             List<Model.Admin> Data = new List<Model.Admin>();
-            Data = Fill_Purchase_Data(dt);
+            Data = Fill_Data(dt);
             return Data;
         }
 
-        private List<Model.Admin> Fill_Purchase_Data(DataTable Getdata)
+        private List<Model.Admin> Fill_Data(DataTable Getdata)
         {
             List<Model.Admin> result = new List<Model.Admin>();
 
@@ -88,10 +88,11 @@ namespace Service
                         Book_Author = row["Book_Author"].ToString(),
                         Book_Press = row["Book_Press"].ToString(),
                         Book_Price = row["Book_Price"].ToString(),
-                        Book_Quantity = row["Book_Quantity"].ToString(),
+                        Purchase_Quantity = row["Purchase_Quantity"].ToString(),
                         Order_ID = row["Order_ID"].ToString(),
                         Processing_Static = row["Processing_Static"].ToString(),
                         Order_Date = row["Order_Date"].ToString()
+                        
                     });
             }
             return result;
@@ -124,7 +125,7 @@ namespace Service
         /// <param name="Book_ID"></param>
         public void Purchase_Book_Data(string GetPurchaseQuantity , string Book_ID,string Order_ID)
         {
-            string sql = "insert into dbo.Purchase_Order_Data(Order_ID,Book_ID,Book_Quantity,Processing_Static)" +
+            string sql = "insert into dbo.Purchase_Order_Data(Order_ID,Book_ID,Purchase_Quantity,Processing_Static)" +
                 "values('" + Order_ID + "','" + Book_ID + "','" + GetPurchaseQuantity + "','False');";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
             using (conn)
@@ -133,17 +134,136 @@ namespace Service
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataAdapter sqlAdapter_sql = new SqlDataAdapter(cmd);
                 cmd.ExecuteNonQuery();
+                conn.Close();
             }
         }
         /// <summary>
-        /// 將未處理訂單之書籍更新至書庫裡面
+        /// 處理未處理進貨訂單
         /// </summary>
-        public void Update_Order_Book(string )
+    
+        public void UpdateStock(string Order_ID,string Book_ID,string Quantity)
         {
+            string sql_Update_Stock = "update Books_Management set Book_Quantity = Book_Quantity + " + Quantity + "where Book_ID = " +
+                "'" + Book_ID + "';";
+            string sql_Update_Processing_Static = "update Purchase_Order_Data set Processing_Static = 'True' " +
+                "where Order_ID = '" + Order_ID + "' and Book_ID = '" + Book_ID + "';";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand cmd_Update_Stock = new SqlCommand(sql_Update_Stock, conn);
+                SqlDataAdapter sqlAdapter_sql = new SqlDataAdapter(cmd_Update_Stock);
+                SqlCommand cmd_Update_Processing_Static = new SqlCommand(sql_Update_Processing_Static, conn);
+                SqlDataAdapter sqlAdapter_sql_2 = new SqlDataAdapter(cmd_Update_Processing_Static);
+                cmd_Update_Stock.ExecuteNonQuery();
+                cmd_Update_Processing_Static.ExecuteNonQuery();
+                conn.Close();
+            }
 
+        }
+        /// <summary>
+        /// 取得所有銷貨訂單ID，做二維list
+        /// </summary>
+        /// <returns></returns>
+        public List<List<Model.Admin>> GetSaleList()
+        {
+            //取得所有訂單編號
+            string sql_GetID = "select * from Customer_Order";
+            
+            DataTable dt = new DataTable();
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql_GetID, conn);
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                sqlAdapter.Fill(dt);
+                conn.Close();
+            }
+            List<Model.Admin> Data = new List<Model.Admin>();
+            List<List<Model.Admin>> IDList = new List<List<Model.Admin>>();
+            Data = Fill_ID_SaleData(dt);
+            IDList = GetSaleDetail(Data);
+            return IDList;
+        }
+
+        public List<List<Model.Admin>> GetSaleDetail(List<Model.Admin> GetIDList)
+        {
+            //取得明細
+            List < List<Model.Admin> > IDList= new List<List<Model.Admin>>();
+            //List<Model.Admin> DetailList = new List<Model.Admin>();
+            for(int i = 0; i < GetIDList.Count; i++)
+            {
+                string sql_GetDetail = "select * from Books_Management bm join Order_Books ob on bm.Book_ID = ob.Book_ID where ob.Order_ID = '" +
+                GetIDList[i].Order_ID + "';";
+                DataTable dt = new DataTable();
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+                using (conn)
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(sql_GetDetail, conn);
+                    SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                    sqlAdapter.Fill(dt);
+                    conn.Close();
+                }
+                List<Model.Admin> Data = new List<Model.Admin>();
+                Data = Fill_DetailSaleData(dt);
+                Data.Add(GetIDList[i]);
+                IDList.Add(Data);
+            }
+            
+            return IDList;
+        }
+
+        private List<Model.Admin> Fill_ID_SaleData(DataTable Getdata)
+        {
+            List<Model.Admin> result = new List<Model.Admin>();
+
+            foreach (DataRow row in Getdata.Rows)
+            {
+                result.Add(
+                    new Model.Admin
+                    {
+                        Order_ID = row["Order_ID"].ToString(),
+                        Customer_Email = row["Customer_Email"].ToString(),
+                       // Book_ID = row["Book_ID"].ToString(),
+                      //  Book_Name = row["Book_Name"].ToString(),
+                       // Book_Author = row["Book_Author"].ToString(),
+                      //  Book_Press = row["Book_Press"].ToString(),
+                      //  Book_Price = row["Book_Price"].ToString(),
+                     //   Order_Quantity = row["Order_Quantity"].ToString(),
+                        Subscriber_Name = row["Subscriber_Name"].ToString(),
+                        Subscriber_Cellphone = row["Subscriber_Cellphone"].ToString(),
+                        Subscriber_Email = row["Subscriber_Email"].ToString(),
+                        Subscriber_Address = row["Subscriber_Address"].ToString(),
+                        Order_Date = row["Order_Date"].ToString(),
+                        Shipping_Date = row["Shipping_Date"].ToString(),
+                        Sale_Processing_Static = row["Sale_Processing_Static"].ToString()
+                    });
+            }
+            return result;
+        }
+        private List<Model.Admin> Fill_DetailSaleData(DataTable Getdata)
+        {
+            List<Model.Admin> result = new List<Model.Admin>();
+
+            foreach (DataRow row in Getdata.Rows)
+            {
+                result.Add(
+                    new Model.Admin
+                    {
+                         Book_ID = row["Book_ID"].ToString(),
+                          Book_Name = row["Book_Name"].ToString(),
+                         Book_Author = row["Book_Author"].ToString(),
+                          Book_Press = row["Book_Press"].ToString(),
+                          Book_Price = row["Book_Price"].ToString(),
+                           Order_Quantity = row["Order_Quantity"].ToString()
+                    });
+            }
+            return result;
         }
     }
 
-    
-    
+
+
 }

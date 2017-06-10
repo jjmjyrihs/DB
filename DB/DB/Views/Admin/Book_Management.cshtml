@@ -1,0 +1,106 @@
+﻿@{
+    if (Request.Cookies["cookie"] != null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Father").show();
+        $("#Book").show(1800);
+        $("#PurchaseList").click(function () {
+            $("#Father").hide("fast");
+            location.href = "@Url.Action("PurchaseList", "Admin")";
+        });
+        $("#SaleList").click(function () {
+            $("#Father").fadeOut(3000);
+            location.href = "@Url.Action("SaleList","Admin")";
+        });
+    });
+</script>
+
+<p class="Admin_p" align="center">商品管理</p>
+<div id ="Father" style="position: relative; width: 100%;top:50px;"hidden >
+    <!--開啟主頁-->
+    <div style="position: absolute; width:100%;left:30%;" class="Admin_Home" hidden>
+        @using (Html.BeginForm("CheckPurchaseBook", "Admin", FormMethod.Post))
+        {
+            <table class="Admin_Table" border="5" width="70%">
+                <tr>
+                    <td align="center">選擇書本</td>
+                    <td align="center">ISBN</td>
+                    <td align="center">書名</td>
+                    <td align="center">作者</td>
+                    <td align="center">出版社</td>
+                    <td height="40px" align="center">售價</td>
+                    <td align="center">庫存數量</td>
+                    <td width="12%" align="center">進貨數量</td>
+                </tr>
+
+              
+            </table>
+            <br>
+
+
+
+            <div style="position:relative; width:70%; ">
+                <div style="position:absolute;left:0px">
+                    <input type="button" name="2" class="Admin_btn_Purchase" id="CheckAll" onclick="checkAll()" value="全選" />
+                </div>
+                <div style="position:absolute;right:0px">
+                    <input name="34 " class="Admin_btn_Purchase" type="submit" value="進貨" />
+                </div>
+            </div>
+        }
+    </div>
+    <!-- 商品管理-->
+    <div id="Book"style="position: absolute; width:100%;left:30%;" class="Admin_PurchaseList" hidden>
+        456
+        <table class="Admin_Table" border="5" width="70%">
+            <tr>
+                <td align="center">選擇書本</td>
+                <td align="center">訂單編號</td>
+                <td align="center">ISBN</td>
+                <td align="center">書名</td>
+                <td align="center">作者</td>
+                <td height="40px" align="center">出版社</td>
+                <td align="center">售價</td>
+                <td width="12%" align="center">進貨數量</td>
+            </tr>
+
+        </table>
+        <br>
+        <div style="position:relative; width:70%; ">
+            <div style="position:absolute;left:0px">
+                <input type="button" id="Back" class="Admin_btn_Purchase" value="返回" />
+            </div>
+            <div style="position:absolute;right:0px">
+                <input class="Admin_btn_Purchase" type="submit" value="更新庫存" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <button id="PurchaseList" class="Admin_btn">進貨明細</button>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <button id ="SaleList" class="Admin_btn" ">銷貨紀錄</button>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <button id ="Book_Management" class="Admin_btn">商品管理</button>
+</div>
