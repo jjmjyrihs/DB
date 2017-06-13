@@ -165,10 +165,19 @@ namespace Service
         /// 取得所有銷貨訂單ID，做二維list
         /// </summary>
         /// <returns></returns>
-        public List<List<Model.Admin>> GetSaleList()
+        public List<List<Model.Admin>> GetSaleList(bool confirm)
         {
             //取得所有訂單編號
-            string sql_GetID = "select * from Customer_Order";
+            //True為已出貨訂單 False 相反
+            string sql_GetID="";
+            if (confirm == true)
+            {
+                sql_GetID = "select * from Customer_Order where Sale_Processing_Static = 'True'";
+            }
+            else
+            {
+                sql_GetID = "select * from Customer_Order where Sale_Processing_Static = 'False'";
+            }
             
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
@@ -208,6 +217,20 @@ namespace Service
                 }
                 List<Model.Admin> Data = new List<Model.Admin>();
                 Data = Fill_DetailSaleData(dt);
+                if (Data.Count == 0)
+                {
+                    string sql = "delete from dbo.Customer_Order where Order_ID = '" + GetIDList[i].Order_ID + "'";
+                    conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+                    using (conn)
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    return null;
+                }
                 Data.Add(GetIDList[i]);
                 IDList.Add(Data);
             }
@@ -226,12 +249,6 @@ namespace Service
                     {
                         Order_ID = row["Order_ID"].ToString(),
                         Customer_Email = row["Customer_Email"].ToString(),
-                       // Book_ID = row["Book_ID"].ToString(),
-                      //  Book_Name = row["Book_Name"].ToString(),
-                       // Book_Author = row["Book_Author"].ToString(),
-                      //  Book_Press = row["Book_Press"].ToString(),
-                      //  Book_Price = row["Book_Price"].ToString(),
-                     //   Order_Quantity = row["Order_Quantity"].ToString(),
                         Subscriber_Name = row["Subscriber_Name"].ToString(),
                         Subscriber_Cellphone = row["Subscriber_Cellphone"].ToString(),
                         Subscriber_Email = row["Subscriber_Email"].ToString(),
@@ -259,9 +276,113 @@ namespace Service
                           Book_Price = row["Book_Price"].ToString(),
                            Order_Quantity = row["Order_Quantity"].ToString()
                     });
+                
             }
+
             return result;
         }
+        /// <summary>
+        /// 出貨
+        /// </summary>
+        /// <param name="Order_ID"></param>
+
+        public void ShipmentAndUpdate(string Order_ID)
+        {
+            
+            string sql_set = "update dbo.Customer_Order set Sale_Processing_Static = 'True', Shipping_Date = '" +
+              DateTime.Now.ToString("yyyy/MM/dd") +   "' where Order_ID='"+Order_ID+"'";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql_set, conn);
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// 新增書本
+        /// </summary>
+        /// <param name="Book_ID"></param>
+        /// <param name="Book_Name"></param>
+        /// <param name="Book_Author"></param>
+        /// <param name="Book_Press"></param>
+        /// <param name="Book_Price"></param>
+        /// <param name="Book_Quantity"></param>
+        /// <param name="Book_Img"></param>
+        public void InsertBook(string Book_ID, string Book_Name, string Book_Author, string Book_Press, string Book_Price, string Book_Quantity, string Book_Img)
+        {
+            string sql = "insert into Books_Management(Book_ID,Book_Name,Book_Author,Book_Press,Book_Price,Book_Quantity,Book_Img) " +
+                "values('" + Book_ID + "','" + Book_Name + "','" + Book_Author + "','" + Book_Press + "','" + Book_Price + "','" + Book_Quantity + "','" + Book_Img + "');";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// 下架
+        /// </summary>
+        /// <param name="isbn"></param>
+        /// <returns></returns>
+        public void Down(string isbn)
+        {
+          /*  DataTable dt = new DataTable();
+            string find = "select * from Order_Books where Book_ID = '" + isbn + "';";*/
+
+
+            string sql = "delete  from dbo.Order_Books where Book_ID = '" + isbn + 
+                            "' ; delete from dbo.Purchase_Order_Data where Book_ID = '"+ isbn+
+                            "'; delete from dbo.Shopping_Car where Book_ID = '" + isbn +
+                            "' ; delete from Books_Management where Book_ID = '" + isbn + "';";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                /* SqlCommand cmd = new SqlCommand(find, conn);
+                 SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                 sqlAdapter.Fill(dt);*/
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();                
+                conn.Close();
+            }
+            //Find_Order_ID(dt);
+        }
+
+
+
+        private void Find_Order_ID(DataTable Getdata)
+        {
+            List<Model.Admin> result = new List<Model.Admin>();
+
+            foreach (DataRow row in Getdata.Rows)
+            {
+
+                        delete_Order_ID(row["Order_ID"].ToString());
+            }
+        }
+        public void delete_Order_ID(string Order_ID) {
+            string sql = "delete  from Customer_Order where Order_ID = '" + Order_ID + "'";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
+            using (conn)
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                cmd.ExecuteNonQuery();               
+                conn.Close();
+            }
+        }
+
     }
 
 

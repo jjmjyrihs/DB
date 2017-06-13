@@ -1,0 +1,18 @@
+﻿@{
+    if (Request.Cookies["cookie"] != null)
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Home Page";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+<script>
+    window.onload = function () {
+        alert("目前沒有訂單!!");
+        location.href = '@Url.Action("Index","Home")';
+    }
+</script>

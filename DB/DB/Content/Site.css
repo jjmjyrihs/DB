@@ -1,10 +1,10 @@
-﻿/*
+﻿
+/*
 body {
     padding-top: 300px;
     padding-bottom: 20px;
 }
 */
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-top: 150px;
@@ -26,13 +26,15 @@ select,
 textarea {
     max-width: 500px;
 }
+
 .register-content {
     padding-top: 10px;
     padding-bottom: 20px;
     padding-left: 15px;
     padding-right: 15px;
-    font-size:30px;
+    font-size: 30px;
 }
+
 .register-content {
     padding-top: 10px;
     padding-bottom: 20px;
@@ -82,21 +84,21 @@ textarea {
         top: 1px;
         position: relative;
     }
+
 .Admin_p {
     color: #220088;
     font-weight: bold;
     font-size: 2cm;
     font-family: '微軟正黑體';
-    padding-top:30px;
-    
+    padding-top: 30px;
 }
 
-.Position_List{
-    border:1px;
+.Position_List {
+    border: 1px;
     position: relative;
-    left:1000px;
-
+    left: 1000px;
 }
+
 .Admin_Table {
     border-style: ridge;
     border-color: #444444;
@@ -128,21 +130,34 @@ textarea {
     text-shadow: 0px 1px 0px #3c5bba;
 }
 
-.Admin_btn_Purchase:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #415989), color-stop(1, #3b71c7));
-    background: -moz-linear-gradient(top, #415989 5%, #3b71c7 100%);
-    background: -webkit-linear-gradient(top, #415989 5%, #3b71c7 100%);
-    background: -o-linear-gradient(top, #415989 5%, #3b71c7 100%);
-    background: -ms-linear-gradient(top, #415989 5%, #3b71c7 100%);
-    background: linear-gradient(to bottom, #415989 5%, #3b71c7 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#415989', endColorstr='#3b71c7',GradientType=0);
-    background-color: #415989;
-}
+    .Admin_btn_Purchase:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #415989), color-stop(1, #3b71c7));
+        background: -moz-linear-gradient(top, #415989 5%, #3b71c7 100%);
+        background: -webkit-linear-gradient(top, #415989 5%, #3b71c7 100%);
+        background: -o-linear-gradient(top, #415989 5%, #3b71c7 100%);
+        background: -ms-linear-gradient(top, #415989 5%, #3b71c7 100%);
+        background: linear-gradient(to bottom, #415989 5%, #3b71c7 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#415989', endColorstr='#3b71c7',GradientType=0);
+        background-color: #415989;
+    }
 
-.Admin_btn_Purchase:active {
-    position: relative;
-    top: 1px;
-}
+    .Admin_btn_Purchase:active {
+        position: relative;
+        top: 1px;
+    }
 
 
         
+
+
+.fontsetting {
+    font-size: 18px;
+    color: #003377;
+    font-weight: bold;
+}
+
+
+.SaleTable {
+    text-align: center;
+    align: center;
+}

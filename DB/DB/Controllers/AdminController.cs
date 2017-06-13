@@ -113,17 +113,79 @@ namespace DB.Controllers
         public ActionResult SaleList()
         {
             GetHomeData();
-            List<List<Model.Admin>> GetSaleList = new List<List<Model.Admin>>();
-            Service.SQL_AdminGetData SAGD = new Service.SQL_AdminGetData();
-            GetSaleList =  SAGD.GetSaleList();
+           List<List<Model.Admin>> GetSaleList = new List<List<Model.Admin>>();
+            List<List<Model.Admin>> GetAllCompleteSaleList = new List<List<Model.Admin>>();
+            GetSaleList =  SAGD.GetSaleList((bool)false);
+            GetAllCompleteSaleList = SAGD.GetSaleList((bool)true);
+            if (GetSaleList == null)
+            {
+                return RedirectToAction("SaleList", "Admin");
+            }
             ViewBag.GetSaleList = GetSaleList;
+            ViewBag.GetAllCompleteSaleList = GetAllCompleteSaleList;
             return View();
         }
+
+        public ActionResult Shipments(string[] Shipment)
+        {
+            
+            for(int i = 0; i < Shipment.Length; i++)
+            {
+                SAGD.ShipmentAndUpdate(Shipment[i]);
+            }
+            return RedirectToAction("SaleList","Admin");
+        }
+
         
+
         public ActionResult Book_Management()
         {
+            GetHomeData();
+            Service.SQL_Inquire SI = new Service.SQL_Inquire();
+            List<Model.BookData> Data = new List<Model.BookData>();
+            Data = SI.Find("", true);
+            ViewBag.AllBooks = Data;
             return View();
         }
+        /// <summary>
+        /// sql書籍新增
+        /// </summary>
+        /// <param name="Book_ID"></param>
+        /// <param name="Book_Name"></param>
+        /// <param name="Book_Author"></param>
+        /// <param name="Book_Press"></param>
+        /// <param name="Book_Price"></param>
+        /// <param name="Book_Quantity"></param>
+        /// <param name="Book_Img"></param>
+        /// <returns></returns>
+        public ActionResult AddBook(string Book_ID,string Book_Name,string Book_Author,string Book_Press,string Book_Price,string Book_Quantity,string Book_Img)
+        {
+            SAGD.InsertBook(Book_ID, Book_Name, Book_Author, Book_Press, Book_Price, Book_Quantity, Book_Img);
+            return RedirectToAction("Add_Books","Admin");
+        }
+        /// <summary>
+        /// 開啟新增書籍頁面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Add_Books()
+        {
+            GetHomeData();
+            return View();
+        }
+        /// <summary>
+        /// 商品下架
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Down(string[] ISBN)
+        {
+            for(int i =0;i<ISBN.Length;i++)
+            {
+                SAGD.Down(ISBN[i]);
+            }
+            return RedirectToAction("Book_Management", "Admin");
+        }
+
+
 
 
 

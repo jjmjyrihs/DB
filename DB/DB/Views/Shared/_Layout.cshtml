@@ -2,7 +2,7 @@
 <html>
 <head>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的購書之旅</title>
@@ -17,10 +17,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>                
+                </button>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
+                <ul class="nav navbar-nav">
                     <li><a href='@Url.Action("Index", "Home")'><img src='@Url.Content("http://www2.nkfust.edu.tw/~clshih/img/folder_home2.png")' /></a></li>
                     <li><a href='@Url.Action("Index", "Login")'><img src='@Url.Content("https://www.shareicon.net/data/128x128/2016/07/09/793520_multimedia_512x512.png")' /></a></li>
                     <li><a href='@Url.Action("Index", "Registered")'><img id="Test" src='@Url.Content("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Noto_Project_Registered_Sign_Emoji.svg/128px-Noto_Project_Registered_Sign_Emoji.svg.png")' /></a></li>
@@ -39,10 +39,8 @@
             <p>&copy; @DateTime.Now.Year - 歡迎下次啟程</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

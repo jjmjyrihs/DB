@@ -85,12 +85,9 @@
         $("#SaleList").click(function () {
             location.href = "@Url.Action("SaleList", "Admin")";
         });
-        ///////////
-        $("#addbook").click(function () {
-            location.href = "@Url.Action("Add_Books", "Admin")";
+        $("#Book_Management").click(function () {
+            location.href = "@Url.Action("Book_Management", "Admin")";
         });
-        ///////////
-
     });
 </script>
 
@@ -154,69 +151,73 @@
     <!-- 商品管理-->
     <div id="AllBooks" style="position: relative; width: 100%;" class="Admin_AllList">
         <div style="position: absolute; width:100%;left:30%;">
-            @using (Html.BeginForm("Down", "Admin", FormMethod.Post))
-            {
-                <div id="books">
+            <div id="Add_Book" hidden>
+                @using (Html.BeginForm("AddBook", "Admin", FormMethod.Post))
+                {
                     <table id="showtd" class="Admin_Table" border=8px Rules="cols" width="70%">
                         <tr style="font-size:20px">
-                            <td align="center" style="color:#550088"></td>
                             <td align="center" style="color:#550088">ISBN</td>
                             <td align="center" style="color:#550088">書名</td>
                             <td align="center" style="color:#550088">作者</td>
                             <td align="center" style="color:#550088">出版社</td>
-                            <td height="40px" align="center" style="color:#550088">售價</td>
-                            <td align="center" style="color:#550088">庫存數量</td>
+                            <td height="40px" align="center" style="color:#550088" s>售價</td>
+                            <td align="center" style="color:#550088">數量</td>
+                            <td align="center" style="color:#550088">書本圖示網址</td>
                         </tr>
-
-                        @for (int i = 0; i < ((List<Model.BookData>)ViewBag.AllBooks).Count; i++)
-                        {
-                            <tr style="font-size:15px">
-
-                                <td align="center">
-                                    <input type="checkbox" name="ISBN" value="@ViewBag.AllBooks[i].Book_ID.ToString()">
-                                </td>
-                                <td height="30px" align="center">@ViewBag.AllBooks[i].Book_ID.ToString()</td>
-                                <td align="center">@ViewBag.AllBooks[i].Book_Name.ToString()</td>
-                                <td align="center">@ViewBag.AllBooks[i].Book_Author.ToString()</td>
-                                <td align="center">@ViewBag.AllBooks[i].Book_Press.ToString()</td>
-                                <td align="center">@ViewBag.AllBooks[i].Book_Price.ToString()</td>
-                                <td align="center">@ViewBag.AllBooks[i].Book_Quantity.ToString()</td>
-
-
-                            </tr>
-                        }
+                        <tr>
+                            <td>
+                                <input type='text' name="Book_ID" style="width:120px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Name" style="width:120px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Author" style="width:120px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Press" style="width:120px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Price" style="width:50px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Quantity" style="width:50px">
+                            </td>
+                            <td>
+                                <input type='text' name="Book_Img" style="width:200px">
+                            </td>
+                        </tr>
                     </table>
+                    <br />
 
-                </div>
-                <br>
-                <div id="booksbt" style="position:relative; width:70%; ">
-                    <div style="position:absolute;left:0px">
-                        <input type="button" id="Back" class="Admin_btn_Purchase" value="返回" />
+                    <div style="position:relative; width:70%; ">
+                        <div style="position:absolute;left:0px">
+                            <input type="button" id="Back" class="Admin_btn_Purchase" value="返回" />
+                        </div>
+                        <div style="position:absolute;left:40%">
+                            <input id="addbook" class="Admin_btn_Purchase" type="submit" value="新增" />
+                        </div>
+                        <div style="position:absolute;right:0px">
+                            <input class="Admin_btn_Purchase" type="reset" value="清空" />
+                        </div>
                     </div>
-                    <div style="position:absolute;left:40%">
-                        <input id="addbook" class="Admin_btn_Purchase" type="button" value="新增書籍" />
-                    </div>
-                    <div style="position:absolute;right:0px">
-                        <input id="down" class="Admin_btn_Purchase" type="submit" value="書籍下架" />
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
-</div>
 
-<div>
-    <button id="PurchaseList" class="Admin_btn">進貨明細</button>
-</div>
-<br>
-<br>
-<br>
-<div>
-    <button id="SaleList" class="Admin_btn">銷貨紀錄</button>
-</div>
-<br>
-<br>
-<br>
-<div>
-    <button id="Book_Management" class="Admin_btn">商品管理</button>
-</div>
+    <div>
+        <button id="PurchaseList" class="Admin_btn">進貨明細</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <button id="SaleList" class="Admin_btn">銷貨紀錄</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <button id="Book_Management" class="Admin_btn">商品管理</button>
+    </div>

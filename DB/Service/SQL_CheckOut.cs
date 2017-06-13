@@ -53,14 +53,19 @@ namespace Service
             {
                 string sql = "insert into dbo.Order_Books(Order_ID,Book_ID,Order_Quantity) " +
                     "values('" + Data.Order_ID + "','" + Data2[i].Book_ID + "','" + Data2[i].Order_Quantity + "')";
+                string sql_update = "update dbo.Books_Management set Book_Quantity = Book_Quantity - '" + Data2[i].Order_Quantity + "'" +
+                    "where Book_ID = '" + Data2[i].Book_ID + "'";
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconn"].ConnectionString);
                 using (conn)
                 {
                     conn.Open();
                     SqlCommand cmd_sql = new SqlCommand(sql, conn);
                     SqlDataAdapter sqlAdapter_sql = new SqlDataAdapter(cmd_sql);
+                    SqlCommand cmd_update = new SqlCommand(sql_update, conn);
+                    SqlDataAdapter sqlAdapter_sql_update = new SqlDataAdapter(cmd_update);
                     try
                     {
+                        cmd_update.ExecuteNonQuery();
                         cmd_sql.ExecuteNonQuery();
                     }
                     catch (Exception e)

@@ -10,7 +10,9 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <script>
     function checkAll() {
         if ($("#CheckAll").val() == "全選") {
@@ -62,6 +64,9 @@
     $(document).ready(function () {
         $("#Father").show();
         $("#Sale").show(1500);
+        $("#showtd2").find("td").each(function () {
+            $(this).show();
+        });
         $("#SaleList").click(function () {
             $(".Admin_Home").hide("slow");
             $(".Admin_SaleList").show("slow");
@@ -72,6 +77,9 @@
             $(".Admin_SaleList").hide("slow");
             $(".Admin_Home").show("slow");
             $("#Title").text("進銷存管理系統");
+            $("#showtd").find("td").each(function () {
+                $(this).show();
+            });
         });
         ///////////
         $("#PurchaseList").click(function () {
@@ -81,30 +89,31 @@
             location.href = "@Url.Action("Book_Management", "Admin")";
         });
         ///////////
-        $("input[id='bt']").each(function () {
-            $(this).click(function () {
-
-                var text = "qq" + (this.name);
-                //var text2 = "p['id = '" + text + "']";
-                $("#001").slideToggle();
-            });
-        });
+        //////////////////////////////
     });
 </script>
+<script>
+    function tttest(id) {
+        var table = "#table" + id;
+        $(table).find("td").each(function () {
+            $(this).slideToggle("slow", "swing");
+        });
 
+    }
+</script>
 <style>
-    .dis2 {
+    td {
         display: none;
     }
 </style>
-
-<p class="Admin_p" align="center">銷貨明細</p>
+<p id="Title" class="Admin_p" align="center">銷貨明細</p>
 <div id="Father" style="position: relative; width: 100%;top:50px;" hidden>
-    <!--開啟主頁-->
+    <!-- 進入首頁-->
     <div style="position: absolute; width:100%;left:30%;" class="Admin_Home" hidden>
+
         @using (Html.BeginForm("CheckPurchaseBook", "Admin", FormMethod.Post))
         {
-            <table class="Admin_Table" border="5" width="70%">
+            <table id="showtd" class="Admin_Table" border="5" width="70%">
                 <tr>
                     <td align="center">選擇書本</td>
                     <td align="center">ISBN</td>
@@ -142,7 +151,6 @@
             <br>
 
 
-
             <div style="position:relative; width:70%; ">
                 <div style="position:absolute;left:0px">
                     <input type="button" name="2" class="Admin_btn_Purchase" id="CheckAll" onclick="checkAll()" value="全選" />
@@ -153,101 +161,147 @@
             </div>
         }
     </div>
-    <!-- 未處理銷貨明細-->
-    <div id="Sale" style="position: absolute; width:100%;left:30%;" class="Admin_SaleList" hidden>
-
-        @using (Html.BeginForm("SaleList", "Admin", FormMethod.Post))
+    <!-- 銷貨明細-->
+    <div id="Sale" style="position: relative; width: 100%;" class="Admin_SaleList" hidden>
+        <div style="position: absolute; width:100%;left:30%;">
+            <!--未出貨訂單-->
+            <div align="center" style="width:70%">
+                <h2>未出貨訂單</h2>
+            </div>
+            @using (Html.BeginForm("Shipments", "Admin", FormMethod.Post))
             {
-            <table class="Admin_Table" border="5" width="70%">
-                @for (int i = 0; i < ((List<List<Model.Admin>>)ViewBag.GetSaleList).Count; i++)
+                for (int i = 0; i < ((List<List<Model.Admin>>)ViewBag.GetSaleList).Count; i++)
                 {
-                    string test2 = "aa" + i;
-                    string test3 = "qq" + i;
-                    int a = ((List<Model.Admin>)ViewBag.GetSaleList[i]).Count - 1;
-                    for (int j = 0; j < a; j++)
-                    {
-                        for(int k=0;k<)
-                        string fuck = ViewBag.GetSaleList[i][j].Book_ID.ToString();
-                        //   string TestName = "text" + @i;
-                        // string TttestName = "texttt" + @i;
-                        int count = 0;
-                        string test = i.ToString() + j.ToString();
-                        <tr class="dis2">
-                            <td height="30px" align="center" id="(@test@count)">@ViewBag.GetSaleList[i][j].Book_ID.ToString()</td>
+                    int SaleListLen = ((List<Model.Admin>)ViewBag.GetSaleList[i]).Count - 1;
+                    string table2Id = "table" + i;
+
+                    <table id=@table2Id class="SaleTable" width="70%">
+                        <tr>
+                            <td class="fontsetting">ISBN</td>
+                            <td class="fontsetting">書名</td>
+                            <td class="fontsetting">作者</td>
+                            <td class="fontsetting">出版社</td>
+                            <td class="fontsetting">售價</td>
+                            <td class="fontsetting">訂購數量</td>
+                        </tr>
+                        @for (int j = 0; j < SaleListLen; j++)
+                        {
+
+                            <tr>
                                 
-                            
-                                
-                            <td id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][j].Book_Name.ToString()</td>
-                            <td id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][j].Book_Author.ToString()</td>
-                            <td id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][j].Book_Press.ToString()</td>
-                            <td align="center" id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][j].Book_Price.ToString()</td>
-                            <td align="center" id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][j].Order_Quantity.ToString()</td>
-                        </tr>
+                                <td width="20%" 30px" align="center">@ViewBag.GetSaleList[i][j].Book_ID.ToString()</td>
+                                <td width="20%">@ViewBag.GetSaleList[i][j].Book_Name.ToString()</td>
+                                <td width="10%">@ViewBag.GetSaleList[i][j].Book_Author.ToString()</td>
+                                <td width="20%">@ViewBag.GetSaleList[i][j].Book_Press.ToString()</td>
+                                <td width="10%">@ViewBag.GetSaleList[i][j].Book_Price.ToString()</td>
+                                <td width="10%">@ViewBag.GetSaleList[i][j].Order_Quantity.ToString()</td>
+                            </tr>
+                        }
                         <tr>
-                            <th>
-                                <p class="dis" id="(@test+(@count++).ToString()")>訂單日期</p>
-                            </th>
-                            <td>
-                                <p class="dis" id="(@test+(@count++).ToString()")>@ViewBag.GetSaleList[i][a].Order_Date.ToString()</p>
-                            </td>
-                            <th>
-                                <p class="dis" id="@test2">客戶帳號</p>
-                            </th>
-                            <td colspan="3">
-                                <p class="dis" id="@test2">@ViewBag.GetSaleList[i][a].Customer_Email.ToString()</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p class="dis" id="@test2">訂購人姓名</p>
-                            </th>
-                            <td>
-                                <p class="dis" id="@test2">@ViewBag.GetSaleList[i][a].Subscriber_Name.ToString()</p>
-                            </td>
-                            <th>
-                                <p class="dis" id="@test2">訂購人Email</p>
-                            </th>
-                            <td colspan="3">
-                                <p class="dis" id="test">@ViewBag.GetSaleList[i][a].Subscriber_Email.ToString()</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p class="dis" id="@test2">訂購人電話</p>
-                            </th>
-                            <td>
-                                <p class="dis" id="@test2">@ViewBag.GetSaleList[i][a].Subscriber_Cellphone.ToString()</p>
-                            </td>
-                            <th>
-                                <p class="dis" id="@test2">訂購人地址</p>
-                            </th>
-                            <td colspan="3">
-                                <p class="dis" id="test">@ViewBag.GetSaleList[i][a].Subscriber_Address.ToString()</p>
-                            </td>
+                            <td width="5%" class="fontsetting">訂購日期：</td>
+                            <td width="10%">@ViewBag.GetSaleList[i][SaleListLen].Order_Date.ToString()</td>
+                            <td colspan="2" class="fontsetting">訂購人姓名：</td>
+                            <td colspan="2">@ViewBag.GetSaleList[i][SaleListLen].Subscriber_Name.ToString()</td>
                         </tr>
 
-                    }
+                        <tr>
+                            <td width="5%" class="fontsetting">訂購人Email：</td>
+                            <td width="10%">@ViewBag.GetSaleList[i][SaleListLen].Subscriber_Email.ToString()</td>
+                            <td colspan="2" class="fontsetting">客戶帳號：</td>
+                            <td colspan="2">@ViewBag.GetSaleList[i][SaleListLen].Customer_Email.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="fontsetting">訂購人電話：</td>
+                            <td colspan="5">@ViewBag.GetSaleList[i][SaleListLen].Subscriber_Cellphone.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="fontsetting">訂購人地址：</td>
+                            <td colspan="5">@ViewBag.GetSaleList[i][SaleListLen].Subscriber_Address.ToString()</td>
+                        </tr>
 
-                    <tr>
-                        <td align="center">
-                            <input type="checkbox" name="DataCheck" value="@ViewBag.GetCertainData[i].Book_ID.ToString()" id="@i" onclick="test(this.id)">
-                        </td>
-                        <td colspan="5">
-                            <input type="button" id="bt" name="@i" style="width:100%" value="@ViewBag.GetSaleList[i][a].Order_ID.ToString()">
-                        </td>
-                    </tr>
+                        <tr>
+                            <th width="20%">
+                                <div align="center">
+                                    <input type="checkbox" name="Shipment" value="@ViewBag.GetSaleList[i][SaleListLen].Order_ID.ToString()">
+                                </div>
+                            </th>
+                            <th colspan="5">
+                                <div align="center">
+                                    <input type="button" id="@i" onclick="tttest(this.id)" value="@ViewBag.GetSaleList[i][SaleListLen].Order_ID.ToString()" style="width:60%" />
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
                 }
-            </table>
-                <br>
                 <div style="position:relative; width:70%; ">
                     <div style="position:absolute;left:0px">
                         <input type="button" id="Back" class="Admin_btn_Purchase" value="返回" />
                     </div>
                     <div style="position:absolute;right:0px">
-                        <input class="Admin_btn_Purchase" type="submit" value="更新庫存" />
+                        <input class="Admin_btn_Purchase" type="submit" value="已出貨" />
                     </div>
                 </div>
-        }
+            }
+            <br>
+            <!--所有已出貨明細-->
+            <div style="position: relative; width:100%;top:100px" id="showtd2">
+                <div align="center" style="width:70%">
+                    <h2>所有已出貨明細</h2>
+                </div>
+                @for (int i = 0; i < ((List<List<Model.Admin>>)ViewBag.GetAllCompleteSaleList).Count; i++)
+                {
+                    int SaleListLen = ((List<Model.Admin>)ViewBag.GetAllCompleteSaleList[i]).Count - 1;
+                    
+
+                    <table  class="SaleTable" width="70%">
+                        <tr>
+                            <td colspan="6">-------------------------------------------------------------------------------------------------------------------------------------------------------------------------</td>
+                        </tr>
+                        <tr>
+                            <td class="fontsetting">ISBN</td>
+                            <td class="fontsetting">書名</td>
+                            <td class="fontsetting">作者</td>
+                            <td class="fontsetting">出版社</td>
+                            <td class="fontsetting">售價</td>
+                            <td class="fontsetting">訂購數量</td>
+                        </tr>
+                        @for (int j = 0; j < SaleListLen; j++)
+                        {
+                            <tr>
+                                <td width="20%" 30px" align="center">@ViewBag.GetAllCompleteSaleList[i][j].Book_ID.ToString()</td>
+                                <td width="20%">@ViewBag.GetAllCompleteSaleList[i][j].Book_Name.ToString()</td>
+                                <td width="10%">@ViewBag.GetAllCompleteSaleList[i][j].Book_Author.ToString()</td>
+                                <td width="20%">@ViewBag.GetAllCompleteSaleList[i][j].Book_Press.ToString()</td>
+                                <td width="10%">@ViewBag.GetAllCompleteSaleList[i][j].Book_Price.ToString()</td>
+                                <td width="10%">@ViewBag.GetAllCompleteSaleList[i][j].Order_Quantity.ToString()</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td width="5%" class="fontsetting">訂購日期：</td>
+                            <td width="10%">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Order_Date.ToString()</td>
+                            <td colspan="2" class="fontsetting">訂購人姓名：</td>
+                            <td colspan="2">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Subscriber_Name.ToString()</td>
+                        </tr>
+
+                        <tr>
+                            <td width="5%" class="fontsetting">訂購人Email：</td>
+                            <td width="10%">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Subscriber_Email.ToString()</td>
+                            <td colspan="2" class="fontsetting">客戶帳號：</td>
+                            <td colspan="2">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Customer_Email.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="fontsetting">訂購人電話：</td>
+                            <td colspan="5">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Subscriber_Cellphone.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="fontsetting">訂購人地址：</td>
+                            <td colspan="5">@ViewBag.GetAllCompleteSaleList[i][SaleListLen].Subscriber_Address.ToString()</td>
+                        </tr>
+                        
+                    </table>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
